@@ -7,7 +7,7 @@ public class Installment {
 
     private String id;
 
-    private LocalDate dataVendicemnto;
+    private LocalDate payamentDueDate;
 
     private BigDecimal totalAmount;
 
