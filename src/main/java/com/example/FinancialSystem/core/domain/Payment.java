@@ -1,9 +1,11 @@
 package com.example.FinancialSystem.core.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
+@Builder
 @Getter
 public class Payment {
 
@@ -16,12 +18,4 @@ public class Payment {
     private PaymentMethod paymentMethod;
 
     private Installment installment;
-
-    public Payment(Double amoutPaid, Double remainingAmount, PaymentMethod paymentMethod, Installment installment){
-        this.amoutPaid=amoutPaid;
-        this.remainingAmount=remainingAmount;
-        this.datePayment=LocalDate.now();
-        this.paymentMethod=paymentMethod;
-        this.installment=installment;
-    }
 }

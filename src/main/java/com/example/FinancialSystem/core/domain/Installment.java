@@ -1,10 +1,12 @@
 package com.example.FinancialSystem.core.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Builder
 @Getter
 public class Installment {
 
@@ -14,15 +16,5 @@ public class Installment {
 
     private BigDecimal totalAmount;
 
-    private Contract contract;
-
     private InstallmentStatus status;
-
-    public Installment (String id, LocalDate paymentDueDate, BigDecimal totalAmount, Contract contract, InstallmentStatus status){
-        this.id=id;
-        this.paymentDueDate=paymentDueDate;
-        this.totalAmount=totalAmount;
-        this.contract=contract;
-        this.status=status;
-    }
 }
