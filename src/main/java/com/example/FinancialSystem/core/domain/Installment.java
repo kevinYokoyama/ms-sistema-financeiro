@@ -1,4 +1,4 @@
-package com.example.FinancialSystem.core.domain.classes;
+package com.example.FinancialSystem.core.domain;
 
 import com.example.FinancialSystem.core.domain.enumeration.InstallmentStatus;
 import lombok.Builder;
