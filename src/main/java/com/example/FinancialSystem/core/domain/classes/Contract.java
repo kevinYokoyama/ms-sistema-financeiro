@@ -31,5 +31,5 @@ public class Contract {
 
     private BigDecimal monthlySetRate;
 
-    private Double remainingAmount;
+    private BigDecimal remainingAmount;
 }
