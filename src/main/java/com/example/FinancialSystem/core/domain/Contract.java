@@ -1,5 +1,6 @@
 package com.example.FinancialSystem.core.domain;
 
+import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -29,4 +30,6 @@ public class Contract {
     private Integer daysOverdue;
 
     private BigDecimal monthlySetRate;
+
+    private BigDecimal remainingAmount;
 }
