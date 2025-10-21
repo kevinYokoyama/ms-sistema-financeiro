@@ -1,5 +1,6 @@
-package com.example.FinancialSystem.core.domain;
+package com.example.FinancialSystem.core.domain.classes;
 
+import com.example.FinancialSystem.core.domain.enumeration.InstallmentStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,7 +13,7 @@ public class Installment {
 
     private String id;
 
-    private LocalDate paymentDueDate;
+    private LocalDate dueDate;
 
     private BigDecimal totalAmount;
 
