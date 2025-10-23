@@ -6,9 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Builder
 @Getter
@@ -29,8 +31,10 @@ public class ContractEntity {
 
     private BigDecimal installmentAmount;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startDate;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
 
     private Integer daysOverdue;
@@ -38,4 +42,6 @@ public class ContractEntity {
     private BigDecimal monthlySetRate;
 
     private BigDecimal remainingAmount;
+
+    private List<InstallmentEntity> installment;
 }
