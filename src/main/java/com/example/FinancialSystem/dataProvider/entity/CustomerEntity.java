@@ -11,11 +11,10 @@ import java.time.LocalDate;
 
 @Builder
 @Getter
-@Document(collection="customer")
+@Document(collection = "customer")
 public class CustomerEntity {
 
     @MongoId
-
     private String id;
 
     private String name;

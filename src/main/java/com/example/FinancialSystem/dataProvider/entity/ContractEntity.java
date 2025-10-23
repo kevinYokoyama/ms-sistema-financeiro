@@ -18,7 +18,6 @@ import java.util.List;
 public class ContractEntity {
 
     @MongoId
-
     private String id;
 
     private ContractStatus status;
@@ -43,5 +42,5 @@ public class ContractEntity {
 
     private BigDecimal remainingAmount;
 
-    private List<InstallmentEntity> installment;
+    private List<InstallmentEntity> installments;
 }

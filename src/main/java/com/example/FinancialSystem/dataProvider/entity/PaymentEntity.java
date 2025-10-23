@@ -14,11 +14,10 @@ import java.time.LocalDateTime;
 
 @Builder
 @Getter
-@Document(collection="payment")
+@Document(collection = "payment")
 public class PaymentEntity {
 
     @MongoId
-
     private String id;
 
     private BigDecimal amountPaid;
