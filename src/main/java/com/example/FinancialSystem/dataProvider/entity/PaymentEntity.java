@@ -10,10 +10,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Builder
 @Getter
-@Document(collection = "payment")
+@Document(collection="payment")
 public class PaymentEntity {
 
     @MongoId
@@ -22,12 +23,10 @@ public class PaymentEntity {
 
     private BigDecimal amountPaid;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate datePayment;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime datePayment;
 
     private PaymentMethod paymentMethod;
-
-    private InstallmentEntity installment;
 
     private PaymentStatus status;
 }

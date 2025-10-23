@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 @Builder
 @Getter
-@Document(collection = "installment")
+@Document(collection="installment")
 public class InstallmentEntity {
 
     @MongoId
