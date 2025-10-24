@@ -3,4 +3,4 @@
       name=FinancialSystem
     data:
       mongodb:
-        uri: mongodb://localhost:37017/financial-system
+        uri: mongodb://localhost:37017/financial_system
