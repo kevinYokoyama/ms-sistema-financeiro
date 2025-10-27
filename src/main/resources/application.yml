@@ -1,6 +1,6 @@
   spring:
     application:
-      name=FinancialSystem
+      name: FinancialSystem
     data:
       mongodb:
-        uri: mongodb://localhost:37017/financial_system
+        uri: mongodb://localhost:37017/financial-system
