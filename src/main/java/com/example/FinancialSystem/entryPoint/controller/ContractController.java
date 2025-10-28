@@ -16,25 +16,25 @@ import java.util.List;
 public class ContractController {
 
     @PostMapping
-    public Contract post(){
+    public Contract create() {
         System.out.print("\nCreating a contract...");
         return null;
     }
 
     @PutMapping("/{daysOverdue}")
-    public Contract put(@PathVariable Integer daysOverdue){
+    public Contract edit(@PathVariable Integer daysOverdue) {
         System.out.printf("\nEditing the days overdue to %d", daysOverdue);
         return null;
     }
 
     @GetMapping("/{id}")
-    public List<Contract> get(@PathVariable String id){
+    public List<Contract> get(@PathVariable String id) {
         System.out.printf("\nSearching for the id: %s", id);
         return List.of();
     }
 
     @DeleteMapping("/{id}")
-    public List<Contract> delete(@PathVariable String id){
+    public List<Contract> delete(@PathVariable String id) {
         System.out.printf("\nDeleting the id %s", id);
         return List.of();
     }

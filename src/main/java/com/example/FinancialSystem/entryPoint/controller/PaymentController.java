@@ -17,25 +17,25 @@ import java.util.List;
 public class PaymentController {
 
     @PostMapping
-    public Payment post(){
+    public Payment create() {
         System.out.print("\nCreating a payment...");
         return null;
     }
 
     @PutMapping("/{status}")
-    public Payment put(@PathVariable PaymentStatus status){
+    public Payment edit(@PathVariable PaymentStatus status) {
         System.out.printf("\nEditing the status to %s", status);
         return null;
     }
 
     @GetMapping("/{id}")
-    public List<Payment> get(@PathVariable String id){
+    public List<Payment> get(@PathVariable String id) {
         System.out.printf("\nSearching for the id: %s", id);
         return List.of();
     }
 
     @DeleteMapping("/{id}")
-    public List<Payment> delete(@PathVariable String id){
+    public List<Payment> delete(@PathVariable String id) {
         System.out.printf("\nDeleting the id %s", id);
         return List.of();
     }
