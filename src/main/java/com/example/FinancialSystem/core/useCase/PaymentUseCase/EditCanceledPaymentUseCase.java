@@ -3,9 +3,11 @@ package com.example.FinancialSystem.core.useCase.PaymentUseCase;
 import com.example.FinancialSystem.core.domain.Payment;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentMethod;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+@Component
 public class EditCanceledPaymentUseCase {
     public Payment execute(PaymentStatus status) {
         var payment2 = Payment.builder()

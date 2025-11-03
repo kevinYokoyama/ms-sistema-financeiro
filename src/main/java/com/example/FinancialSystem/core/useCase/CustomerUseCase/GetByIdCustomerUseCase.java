@@ -2,10 +2,11 @@ package com.example.FinancialSystem.core.useCase.CustomerUseCase;
 
 import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.List;
 
+@Component
 public class GetByIdCustomerUseCase {
     public Customer execute(String id) {
         var customer1 = Customer.builder()

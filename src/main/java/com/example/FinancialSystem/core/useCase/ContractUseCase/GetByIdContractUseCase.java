@@ -2,15 +2,13 @@ package com.example.FinancialSystem.core.useCase.ContractUseCase;
 
 import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Configuration
+@Component
 public class GetByIdContractUseCase {
-    @Bean
     public Contract execute(String id){
         var contract1 = Contract.builder()
                 .id("1")
