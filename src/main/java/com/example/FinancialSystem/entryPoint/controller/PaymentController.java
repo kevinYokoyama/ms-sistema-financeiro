@@ -45,7 +45,7 @@ public class PaymentController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public Payment delete(@PathVariable String id) {
-        return deletePaymentUseCase.execute(id);
+    public void delete(@PathVariable String id) {
+        deletePaymentUseCase.execute(id);
     }
 }
