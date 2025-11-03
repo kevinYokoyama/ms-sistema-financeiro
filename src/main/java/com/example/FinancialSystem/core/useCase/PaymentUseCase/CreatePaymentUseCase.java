@@ -1,0 +1,20 @@
+package com.example.FinancialSystem.core.useCase.PaymentUseCase;
+
+import com.example.FinancialSystem.core.domain.Payment;
+import com.example.FinancialSystem.core.domain.enumeration.PaymentMethod;
+import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
+
+import java.time.LocalDate;
+
+public class CreatePaymentUseCase {
+    public Payment execute(Payment payment) {
+        System.out.print("\nCreating a payment...");
+        return Payment.builder()
+                .id(payment.getId())
+                .amountPaid(payment.getAmountPaid())
+                .datePayment(LocalDate.now())
+                .paymentMethod(PaymentMethod.CREDIT_CARD)
+                .status(PaymentStatus.EXECUTED)
+                .build();
+    }
+}
