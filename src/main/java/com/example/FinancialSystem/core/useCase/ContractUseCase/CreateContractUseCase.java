@@ -9,7 +9,9 @@ import java.time.LocalDate;
 
 @Component
 public class CreateContractUseCase {
-    public Contract execute(String id, BigDecimal requestAmount){
+
+    public Contract execute(String id, BigDecimal requestAmount) {
+        System.out.print("\nCreating a contract...");
         return Contract.builder()
                 .id(id)
                 .requestAmount(requestAmount)
@@ -17,5 +19,4 @@ public class CreateContractUseCase {
                 .status(ContractStatus.ACTIVE)
                 .build();
     }
-
 }

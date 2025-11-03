@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 @Component
 public class GetByIdCustomerUseCase {
+
     public Customer execute(String id) {
         var customer1 = Customer.builder()
                 .id("1")
@@ -31,10 +32,10 @@ public class GetByIdCustomerUseCase {
         if (customer1.getId().equals(id)) {
             return customer1;
         }
-        else if (customer2.getId().equals(id)) {
+        if (customer2.getId().equals(id)) {
             return customer2;
         }
-        else if (customer3.getId().equals(id)) {
+        if (customer3.getId().equals(id)) {
             return customer3;
         }
         return null;

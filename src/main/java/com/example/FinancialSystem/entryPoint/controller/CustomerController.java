@@ -1,7 +1,6 @@
 package com.example.FinancialSystem.entryPoint.controller;
 
 import com.example.FinancialSystem.core.domain.Customer;
-import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.CreateCustomerUseCase;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.DeleteCustomerUseCase;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.EditCustomerUseCase;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 @RestController
 @RequestMapping("/v1/customers")
 @RequiredArgsConstructor
@@ -49,7 +47,7 @@ public class CustomerController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public List<Customer> delete(@PathVariable String id) {
+    public Customer delete(@PathVariable String id) {
         return deleteCustomerUseCase.execute(id);
     }
 }

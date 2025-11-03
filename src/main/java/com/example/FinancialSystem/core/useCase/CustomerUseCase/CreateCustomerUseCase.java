@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CreateCustomerUseCase {
+
     public Customer execute(Customer customer) {
         System.out.print("\nCreating a customer...");
         return Customer.builder()

@@ -3,8 +3,8 @@ package com.example.FinancialSystem.entryPoint.controller;
 import com.example.FinancialSystem.core.domain.Payment;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.CreatePaymentUseCase;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.DeletePaymentUseCase;
-import com.example.FinancialSystem.core.useCase.PaymentUseCase.EditStatusCanceledPaymentUseCase;
-import com.example.FinancialSystem.core.useCase.PaymentUseCase.GetPaymentUseCase;
+import com.example.FinancialSystem.core.useCase.PaymentUseCase.EditPaymentUseCase;
+import com.example.FinancialSystem.core.useCase.PaymentUseCase.GetByIdPaymentUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,8 +25,8 @@ import java.util.List;
 public class PaymentController {
 
     private final CreatePaymentUseCase createPaymentUseCase;
-    private final EditStatusCanceledPaymentUseCase editCanceledPaymentUseCase;
-    private final GetPaymentUseCase getPaymentUseCase;
+    private final EditPaymentUseCase editCanceledPaymentUseCase;
+    private final GetByIdPaymentUseCase getPaymentUseCase;
     private final DeletePaymentUseCase deletePaymentUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -41,13 +41,13 @@ public class PaymentController {
     }
 
     @GetMapping("/{id}")
-    public List<Payment> get(@PathVariable String id) {
+    public Payment get(@PathVariable String id) {
         return getPaymentUseCase.execute(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public List<Payment> delete(@PathVariable String id) {
+    public Payment delete(@PathVariable String id) {
         return deletePaymentUseCase.execute(id);
     }
 }

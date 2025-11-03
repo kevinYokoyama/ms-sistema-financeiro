@@ -9,14 +9,15 @@ import java.time.LocalDate;
 
 @Component
 public class CreatePaymentUseCase {
+
     public Payment execute(Payment payment) {
         System.out.print("\nCreating a payment...");
         return Payment.builder()
                 .id(payment.getId())
                 .amountPaid(payment.getAmountPaid())
                 .datePayment(LocalDate.now())
-                .paymentMethod(PaymentMethod.CREDIT_CARD)
-                .status(PaymentStatus.EXECUTED)
+                .paymentMethod(payment.getPaymentMethod())
+                .status(payment.getStatus())
                 .build();
     }
 }

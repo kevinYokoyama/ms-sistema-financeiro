@@ -7,8 +7,9 @@ import java.util.List;
 
 @Component
 public class DeleteCustomerUseCase {
-    public List<Customer> execute(String id) {
+
+    public Customer execute(String id) {
         System.out.printf("\nDeleting the id %s", id);
-        return List.of();
+        return null;
     }
 }

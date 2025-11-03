@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 @RestController
 @RequestMapping("/v1/contracts")
 @RequiredArgsConstructor
 public class ContractController {
+
     private final CreateContractUseCase createContractUseCase;
     private final EditContractUseCase editContractUseCase;
     private final GetByIdContractUseCase getByIdContractUseCase;
@@ -30,7 +30,6 @@ public class ContractController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Contract create(@RequestBody Contract data) {
-        System.out.print("\nCreating a contract...");
         return createContractUseCase.execute(data.getId(), data.getRequestAmount());
     }
 
@@ -46,7 +45,7 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public List<Contract> delete(@PathVariable String id) {
+    public Contract delete(@PathVariable String id) {
         return deleteContractUseCase.execute(id);
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EditContractUseCase {
+
     public Contract execute(Contract contract) {
         var contract2 = Contract.builder()
                 .id("14")

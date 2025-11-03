@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class EditStatusCanceledPaymentUseCase {
+public class EditPaymentUseCase {
+
     public Payment execute(Payment status) {
         var payment2 = Payment.builder()
                 .id("1")

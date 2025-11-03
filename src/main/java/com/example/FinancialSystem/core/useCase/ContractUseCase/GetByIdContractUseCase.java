@@ -9,7 +9,8 @@ import java.time.LocalDate;
 
 @Component
 public class GetByIdContractUseCase {
-    public Contract execute(String id){
+
+    public Contract execute(String id) {
         var contract1 = Contract.builder()
                 .id("1")
                 .status(ContractStatus.ACTIVE)
@@ -32,10 +33,10 @@ public class GetByIdContractUseCase {
         if (contract1.getId().equals(id)) {
             return contract1;
         }
-        else if (contract2.getId().equals(id)) {
+        if (contract2.getId().equals(id)) {
             return contract2;
         }
-        else if (contract3.getId().equals(id)) {
+        if (contract3.getId().equals(id)) {
             return contract3;
         }
         return null;
