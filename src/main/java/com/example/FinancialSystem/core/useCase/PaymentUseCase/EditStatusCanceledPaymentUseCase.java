@@ -8,17 +8,16 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class EditCanceledPaymentUseCase {
-    public Payment execute(PaymentStatus status) {
+public class EditStatusCanceledPaymentUseCase {
+    public Payment execute(Payment status) {
         var payment2 = Payment.builder()
                 .id("1")
                 .status(PaymentStatus.EXECUTED)
                 .paymentMethod(PaymentMethod.CREDIT_CARD)
                 .amountPaid(BigDecimal.valueOf(10000))
                 .build();
-        System.out.println(payment2);
-        System.out.printf("\nEditing the status to %s", status);
         payment2.setStatus(PaymentStatus.CANCELED);
+        System.out.println("\nEditing the amount paid to canceled");
         return payment2;
     }
 }

@@ -12,9 +12,8 @@ public class EditContractUseCase {
                 .status(ContractStatus.ACTIVE)
                 .daysOverdue(10)
                 .build();
-        System.out.println(contract2);
-        System.out.println("Editing the days overdue to " + contract2.getDaysOverdue());
         contract2.setDaysOverdue(contract.getDaysOverdue());
+        System.out.println("Editing the days overdue to " + contract.getDaysOverdue());
         return contract2;
     }
 }

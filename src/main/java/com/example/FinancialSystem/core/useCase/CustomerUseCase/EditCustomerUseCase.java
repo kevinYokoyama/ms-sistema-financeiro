@@ -12,9 +12,8 @@ public class EditCustomerUseCase {
                 .name("Naomi")
                 .status(CustomerStatus.ACTIVE)
                 .build();
-        System.out.println(customer2);
-        System.out.println("Editing the name");
         customer2.setName(customer.getName());
+        System.out.printf("Editing the name to %s", customer2.getName());
         return customer2;
     }
 }

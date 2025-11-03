@@ -1,10 +1,9 @@
 package com.example.FinancialSystem.entryPoint.controller;
 
 import com.example.FinancialSystem.core.domain.Payment;
-import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.CreatePaymentUseCase;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.DeletePaymentUseCase;
-import com.example.FinancialSystem.core.useCase.PaymentUseCase.EditCanceledPaymentUseCase;
+import com.example.FinancialSystem.core.useCase.PaymentUseCase.EditStatusCanceledPaymentUseCase;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.GetPaymentUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,7 +25,7 @@ import java.util.List;
 public class PaymentController {
 
     private final CreatePaymentUseCase createPaymentUseCase;
-    private final EditCanceledPaymentUseCase editCanceledPaymentUseCase;
+    private final EditStatusCanceledPaymentUseCase editCanceledPaymentUseCase;
     private final GetPaymentUseCase getPaymentUseCase;
     private final DeletePaymentUseCase deletePaymentUseCase;
 
@@ -37,7 +36,7 @@ public class PaymentController {
     }
 
     @PutMapping
-    public Payment editStatus(@RequestBody PaymentStatus status) {
+    public Payment editStatusToCanceled(@RequestBody Payment status) {
         return editCanceledPaymentUseCase.execute(status);
     }
 
