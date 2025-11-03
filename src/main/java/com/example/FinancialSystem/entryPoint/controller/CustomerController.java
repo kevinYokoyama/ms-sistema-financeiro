@@ -1,7 +1,11 @@
 package com.example.FinancialSystem.entryPoint.controller;
 
 import com.example.FinancialSystem.core.domain.Customer;
-import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
+import com.example.FinancialSystem.core.useCase.CustomerUseCase.CreateCustomerUseCase;
+import com.example.FinancialSystem.core.useCase.CustomerUseCase.DeleteCustomerUseCase;
+import com.example.FinancialSystem.core.useCase.CustomerUseCase.EditCustomerUseCase;
+import com.example.FinancialSystem.core.useCase.CustomerUseCase.GetByIdCustomerUseCase;
+import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,45 +18,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 @RestController
 @RequestMapping("/v1/customers")
+@RequiredArgsConstructor
 public class CustomerController {
+
+    private final CreateCustomerUseCase createCustomerUseCase;
+    private final EditCustomerUseCase editCustomerUseCase;
+    private final GetByIdCustomerUseCase getByIdCustomerUseCase;
+    private final DeleteCustomerUseCase deleteCustomerUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     @DateTimeFormat(pattern = "dd/mm/yyyy")
     public Customer create(@RequestBody Customer customer) {
-        System.out.print("\nCreating a customer...");
-        return Customer.builder()
-                .id(customer.getId())
-                .name(customer.getName())
-                .birthdate(customer.getBirthdate())
-                .status(CustomerStatus.ACTIVE)
-                .build();
+        return createCustomerUseCase.execute(customer);
     }
 
     @PutMapping
     public Customer edit(@RequestBody Customer customer) {
-        var customer2 = Customer.builder()
-                .id("1")
-                .name("Naomi")
-                .status(CustomerStatus.ACTIVE)
-                .build();
-        System.out.printf("\nEditing the name to %s", customer.getName() );
-        return customer2;
+        return editCustomerUseCase.execute(customer);
     }
 
     @GetMapping("/{id}")
-    public List<Customer> get(@PathVariable String id) {
-        System.out.printf("\nSearching for the id: %s", id);
-        return List.of();
+    public Customer getById(@PathVariable String id) {
+        return getByIdCustomerUseCase.execute(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public List<Customer> delete(@PathVariable String id) {
-        System.out.printf("\nDeleting the id %s", id);
-        return List.of();
+    public void delete(@PathVariable String id) {
+        deleteCustomerUseCase.execute(id);
     }
 }
