@@ -1,15 +1,11 @@
 package com.example.FinancialSystem.core.useCase.PaymentUseCase;
 
-import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.domain.Payment;
-import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentMethod;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
 
 @Component
 public class GetByIdPaymentUseCase {

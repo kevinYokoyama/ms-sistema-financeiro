@@ -3,8 +3,6 @@ package com.example.FinancialSystem.core.useCase.CustomerUseCase;
 import com.example.FinancialSystem.core.domain.Customer;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class DeleteCustomerUseCase {
 
