@@ -1,6 +1,9 @@
 package com.example.FinancialSystem.entryPoint.controller;
 
 import com.example.FinancialSystem.core.domain.Customer;
+import com.example.FinancialSystem.core.exception.CustomerIdNotFound;
+import com.example.FinancialSystem.core.exception.CustomerNameNotAllowed;
+import com.example.FinancialSystem.core.exception.CustomerStatusNotAllowedException;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.CreateCustomerUseCase;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.DeleteCustomerUseCase;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.EditCustomerUseCase;
@@ -31,23 +34,23 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     @DateTimeFormat(pattern = "dd/mm/yyyy")
-    public Customer create(@RequestBody Customer customer) {
+    public Customer create(@RequestBody Customer customer) throws CustomerStatusNotAllowedException {
         return createCustomerUseCase.execute(customer);
     }
 
     @PutMapping
-    public Customer edit(@RequestBody Customer customer) {
+    public Customer edit(@RequestBody Customer customer) throws CustomerNameNotAllowed {
         return editCustomerUseCase.execute(customer);
     }
 
     @GetMapping("/{id}")
-    public Customer getById(@PathVariable String id) {
+    public Customer getById(@PathVariable String id) throws CustomerIdNotFound {
         return getByIdCustomerUseCase.execute(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) {
+    public void delete(@PathVariable String id) throws CustomerIdNotFound{
         deleteCustomerUseCase.execute(id);
     }
 }

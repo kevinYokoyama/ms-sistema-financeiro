@@ -1,44 +1,50 @@
 package com.example.FinancialSystem.core.useCase.CustomerUseCase;
 
 import com.example.FinancialSystem.core.domain.Contract;
+import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
+import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
+import com.example.FinancialSystem.core.exception.CustomerIdNotFound;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Component
 public class DeleteCustomerUseCase {
 
-    public void execute(String id) {
+    public void execute(String id) throws CustomerIdNotFound {
 
-        var contract7 = Contract.builder()
-                .id("7")
-                .status(ContractStatus.ACTIVE)
-                .requestAmount(BigDecimal.valueOf(6776))
-                .startDate(LocalDate.now())
+        var customer1 = Customer.builder()
+                .id("1")
+                .name("Yokoyama")
+                .status(CustomerStatus.ACTIVE)
+                .birthdate(LocalDate.of(2009, 1, 3))
                 .build();
-        var contract8 = Contract.builder()
-                .id("8")
-                .status(ContractStatus.ACTIVE)
-                .requestAmount(BigDecimal.valueOf(2468))
-                .startDate(LocalDate.now())
+        var customer2 = Customer.builder()
+                .id("2")
+                .name("Kevin")
+                .status(CustomerStatus.ACTIVE)
+                .birthdate(LocalDate.of(2009, 5, 9))
                 .build();
-        var contract9 = Contract.builder()
-                .id("9")
-                .status(ContractStatus.ACTIVE)
-                .requestAmount(BigDecimal.valueOf(9085))
-                .startDate(LocalDate.now())
+        var customer3 = Customer.builder()
+                .id("3")
+                .name("Taku")
+                .status(CustomerStatus.ACTIVE)
+                .birthdate(LocalDate.of(1990, 7, 23))
                 .build();
 
-        if (contract7.getId().equals(id)) {
-            System.out.print("\nDeleting the id " + contract7.getId());
+        if (!customer1.getId().equals(id) && !customer2.getId().equals(id) && !customer3.getId().equals(id)) {
+            throw new CustomerIdNotFound();
         }
-        if (contract8.getId().equals(id)) {
-            System.out.print("\nDeleting the id " + contract8.getId());
+
+        if (customer1.getId().equals(id)) {
+            System.out.print("\nDeleting the id " + customer1.getId());
         }
-        if (contract9.getId().equals(id)) {
-            System.out.print("\nDeleting the id " + contract9.getId());
+        if (customer2.getId().equals(id)) {
+            System.out.print("\nDeleting the id " + customer2.getId());
+        }
+        if (customer3.getId().equals(id)) {
+            System.out.print("\nDeleting the id " + customer3.getId());
         }
     }
 }
