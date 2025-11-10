@@ -1,8 +1,6 @@
 package com.example.FinancialSystem.core.useCase.CustomerUseCase;
 
-import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.domain.Customer;
-import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
 import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
 import com.example.FinancialSystem.core.exception.CustomerIdNotFound;
 import org.springframework.stereotype.Component;
