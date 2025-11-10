@@ -2,8 +2,8 @@ package com.example.FinancialSystem.core.exception;
 
 import org.apache.coyote.BadRequestException;
 
-public class ContractIdNotFound extends BadRequestException {
-    public ContractIdNotFound() {
+public class CustomerIdNotFoundException extends BadRequestException {
+    public CustomerIdNotFoundException() {
         super("ERROR 404: Id not found");
     }
 }

@@ -2,7 +2,7 @@ package com.example.FinancialSystem.core.useCase.ContractUseCase;
 
 import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
-import com.example.FinancialSystem.core.exception.ContractIdNotFound;
+import com.example.FinancialSystem.core.exception.ContractIdNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Component
 public class DeleteContractUseCase {
 
-    public void execute(String id) throws ContractIdNotFound {
+    public void execute(String id) throws ContractIdNotFoundException {
 
         var contract4 = Contract.builder()
                 .id("4")
@@ -33,7 +33,7 @@ public class DeleteContractUseCase {
                 .build();
 
         if (!contract4.getId().equals(id) && !contract5.getId().equals(id) && !contract6.getId().equals(id)) {
-            throw new ContractIdNotFound();
+            throw new ContractIdNotFoundException();
         }
         if (contract4.getId().equals(id)) {
             System.out.print("\nDeleting the id " + contract4.getId());

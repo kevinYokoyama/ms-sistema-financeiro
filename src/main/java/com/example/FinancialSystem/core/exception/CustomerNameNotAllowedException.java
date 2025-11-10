@@ -2,8 +2,8 @@ package com.example.FinancialSystem.core.exception;
 
 import org.apache.coyote.BadRequestException;
 
-public class CustomerNameNotAllowed extends BadRequestException {
-    public CustomerNameNotAllowed() {
+public class CustomerNameNotAllowedException extends BadRequestException {
+    public CustomerNameNotAllowedException() {
         super("ERROR 405: Name not allowed");
     }
 }

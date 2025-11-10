@@ -2,13 +2,13 @@ package com.example.FinancialSystem.core.useCase.CustomerUseCase;
 
 import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
-import com.example.FinancialSystem.core.exception.CustomerNameNotAllowed;
+import com.example.FinancialSystem.core.exception.CustomerNameNotAllowedException;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EditCustomerUseCase {
 
-    public Customer execute(Customer customer) throws CustomerNameNotAllowed {
+    public Customer execute(Customer customer) throws CustomerNameNotAllowedException {
         var customer2 = Customer.builder()
                 .id("149")
                 .name("Naomi")
@@ -16,7 +16,7 @@ public class EditCustomerUseCase {
                 .build();
 
         if (customer2.getName().equals(customer.getName())){
-            throw new CustomerNameNotAllowed();
+            throw new CustomerNameNotAllowedException();
         }
 
         customer2.setName(customer.getName());

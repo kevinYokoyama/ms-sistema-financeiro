@@ -2,7 +2,7 @@ package com.example.FinancialSystem.entryPoint.controller;
 
 import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.exception.ContractBodyNotFoundException;
-import com.example.FinancialSystem.core.exception.ContractIdNotFound;
+import com.example.FinancialSystem.core.exception.ContractIdNotFoundException;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.CreateContractUseCase;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.DeleteContractUseCase;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.EditContractUseCase;
@@ -41,13 +41,13 @@ public class ContractController {
     }
 
     @GetMapping("/{id}")
-    public Contract getById(@PathVariable String id) throws ContractIdNotFound {
+    public Contract getById(@PathVariable String id) throws ContractIdNotFoundException {
         return getByIdContractUseCase.execute(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) throws ContractIdNotFound{
+    public void delete(@PathVariable String id) throws ContractIdNotFoundException {
         deleteContractUseCase.execute(id);
     }
 }

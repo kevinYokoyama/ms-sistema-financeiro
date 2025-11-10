@@ -1,8 +1,8 @@
 package com.example.FinancialSystem.entryPoint.controller;
 
 import com.example.FinancialSystem.core.domain.Customer;
-import com.example.FinancialSystem.core.exception.CustomerIdNotFound;
-import com.example.FinancialSystem.core.exception.CustomerNameNotAllowed;
+import com.example.FinancialSystem.core.exception.CustomerIdNotFoundException;
+import com.example.FinancialSystem.core.exception.CustomerNameNotAllowedException;
 import com.example.FinancialSystem.core.exception.CustomerStatusNotAllowedException;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.CreateCustomerUseCase;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.DeleteCustomerUseCase;
@@ -39,18 +39,18 @@ public class CustomerController {
     }
 
     @PutMapping
-    public Customer edit(@RequestBody Customer customer) throws CustomerNameNotAllowed {
+    public Customer edit(@RequestBody Customer customer) throws CustomerNameNotAllowedException {
         return editCustomerUseCase.execute(customer);
     }
 
     @GetMapping("/{id}")
-    public Customer getById(@PathVariable String id) throws CustomerIdNotFound {
+    public Customer getById(@PathVariable String id) throws CustomerIdNotFoundException {
         return getByIdCustomerUseCase.execute(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) throws CustomerIdNotFound{
+    public void delete(@PathVariable String id) throws CustomerIdNotFoundException {
         deleteCustomerUseCase.execute(id);
     }
 }
