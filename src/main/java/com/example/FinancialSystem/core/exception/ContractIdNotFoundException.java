@@ -4,6 +4,6 @@ import org.apache.coyote.BadRequestException;
 
 public class ContractIdNotFoundException extends BadRequestException {
     public ContractIdNotFoundException() {
-        super("ERROR 404: Id not found");
+        super("Id not found");
     }
 }
