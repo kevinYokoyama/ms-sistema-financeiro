@@ -3,6 +3,7 @@ package com.example.FinancialSystem.core.useCase.PaymentUseCase;
 import com.example.FinancialSystem.core.domain.Payment;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentMethod;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
+import com.example.FinancialSystem.core.exception.PaymentIdNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -10,7 +11,7 @@ import java.math.BigDecimal;
 @Component
 public class GetByIdPaymentUseCase {
 
-    public Payment execute(String id) {
+    public Payment execute(String id) throws PaymentIdNotFoundException {
         var payment1 = Payment.builder()
                 .id("1")
                 .amountPaid(BigDecimal.valueOf(1000))
@@ -29,6 +30,10 @@ public class GetByIdPaymentUseCase {
                 .paymentMethod(PaymentMethod.PIX)
                 .status(PaymentStatus.EXECUTED)
                 .build();
+
+        if (!payment1.getId().equals(id) && !payment2.getId().equals(id) && !payment3.getId().equals(id)) {
+            throw new PaymentIdNotFoundException();
+        }
 
         if (payment1.getId().equals(id)) {
             return payment1;

@@ -1,44 +1,49 @@
 package com.example.FinancialSystem.core.useCase.PaymentUseCase;
 
-import com.example.FinancialSystem.core.domain.Contract;
-import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
+import com.example.FinancialSystem.core.domain.Payment;
+import com.example.FinancialSystem.core.domain.enumeration.PaymentMethod;
+import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
+import com.example.FinancialSystem.core.exception.PaymentIdNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Component
 public class DeletePaymentUseCase {
 
-    public void execute(String id) {
+    public void execute(String id) throws PaymentIdNotFoundException {
 
-        var contract10 = Contract.builder()
-                .id("10")
-                .status(ContractStatus.ACTIVE)
-                .requestAmount(BigDecimal.valueOf(2245))
-                .startDate(LocalDate.now())
+        var payment1 = Payment.builder()
+                .id("1")
+                .amountPaid(BigDecimal.valueOf(1000))
+                .paymentMethod(PaymentMethod.CREDIT_CARD)
+                .status(PaymentStatus.EXECUTED)
                 .build();
-        var contract11 = Contract.builder()
-                .id("11")
-                .status(ContractStatus.ACTIVE)
-                .requestAmount(BigDecimal.valueOf(24785))
-                .startDate(LocalDate.now())
+        var payment2 = Payment.builder()
+                .id("2")
+                .amountPaid(BigDecimal.valueOf(2000))
+                .paymentMethod(PaymentMethod.DEBIT_CARD)
+                .status(PaymentStatus.EXECUTED)
                 .build();
-        var contract12 = Contract.builder()
-                .id("12")
-                .status(ContractStatus.ACTIVE)
-                .requestAmount(BigDecimal.valueOf(8753))
-                .startDate(LocalDate.now())
+        var payment3 = Payment.builder()
+                .id("3")
+                .amountPaid(BigDecimal.valueOf(3000))
+                .paymentMethod(PaymentMethod.PIX)
+                .status(PaymentStatus.EXECUTED)
                 .build();
 
-        if (contract10.getId().equals(id)) {
-            System.out.print("\nDeleting the id " + contract10.getId());
+        if (!payment1.getId().equals(id) && !payment2.getId().equals(id) && !payment3.getId().equals(id)) {
+            throw new PaymentIdNotFoundException();
         }
-        if (contract11.getId().equals(id)) {
-            System.out.print("\nDeleting the id " + contract11.getId());
+
+        if (payment1.getId().equals(id)) {
+            System.out.print("\nDeleting the id " + payment1.getId());
         }
-        if (contract12.getId().equals(id)) {
-            System.out.print("\nDeleting the id " + contract12.getId());
+        if (payment2.getId().equals(id)) {
+            System.out.print("\nDeleting the id " + payment2.getId());
+        }
+        if (payment3.getId().equals(id)) {
+            System.out.print("\nDeleting the id " + payment3.getId());
         }
     }
 }
