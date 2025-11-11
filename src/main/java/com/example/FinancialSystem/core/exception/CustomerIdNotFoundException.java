@@ -3,7 +3,7 @@ package com.example.FinancialSystem.core.exception;
 import org.apache.coyote.BadRequestException;
 
 public class CustomerIdNotFoundException extends BadRequestException {
-    public CustomerIdNotFoundException() {
-        super("Id not found");
+    public CustomerIdNotFoundException(String id) {
+        super("Customer from the id " + id + " not found");
     }
 }
