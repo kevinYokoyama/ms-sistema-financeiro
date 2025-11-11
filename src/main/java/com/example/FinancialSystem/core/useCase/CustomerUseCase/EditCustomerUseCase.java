@@ -16,7 +16,7 @@ public class EditCustomerUseCase {
                 .build();
 
         if (customer2.getName().equals(customer.getName())){
-            throw new CustomerNameNotAllowedException();
+            throw new CustomerNameNotAllowedException(customer.getName());
         }
 
         customer2.setName(customer.getName());

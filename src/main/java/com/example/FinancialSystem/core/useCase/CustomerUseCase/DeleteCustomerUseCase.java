@@ -32,7 +32,7 @@ public class DeleteCustomerUseCase {
                 .build();
 
         if (!customer1.getId().equals(id) && !customer2.getId().equals(id) && !customer3.getId().equals(id)) {
-            throw new CustomerIdNotFoundException();
+            throw new CustomerIdNotFoundException(id);
         }
 
         if (customer1.getId().equals(id)) {

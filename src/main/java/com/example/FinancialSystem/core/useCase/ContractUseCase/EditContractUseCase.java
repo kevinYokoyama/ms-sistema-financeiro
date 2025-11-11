@@ -2,16 +2,16 @@ package com.example.FinancialSystem.core.useCase.ContractUseCase;
 
 import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
-import com.example.FinancialSystem.core.exception.ContractBodyNotFoundException;
+import com.example.FinancialSystem.core.exception.ContractDaysOverdueNotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EditContractUseCase {
 
-    public Contract execute(Contract contract) throws ContractBodyNotFoundException {
+    public Contract execute(Contract contract) throws ContractDaysOverdueNotFoundException {
 
         if (contract.getDaysOverdue() == null) {
-            throw new ContractBodyNotFoundException();
+            throw new ContractDaysOverdueNotFoundException();
         }
         var contract2 = Contract.builder()
                 .id("14")

@@ -33,7 +33,7 @@ public class DeleteContractUseCase {
                 .build();
 
         if (!contract4.getId().equals(id) && !contract5.getId().equals(id) && !contract6.getId().equals(id)) {
-            throw new ContractIdNotFoundException();
+            throw new ContractIdNotFoundException(id);
         }
         if (contract4.getId().equals(id)) {
             System.out.print("\nDeleting the id " + contract4.getId());

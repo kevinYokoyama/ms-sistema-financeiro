@@ -32,7 +32,7 @@ public class GetByIdContractUseCase {
                 .build();
 
         if (!contract1.getId().equals(id) && !contract2.getId().equals(id) && !contract3.getId().equals(id)) {
-            throw new ContractIdNotFoundException();
+            throw new ContractIdNotFoundException(id);
         }
 
         if (contract1.getId().equals(id)) {

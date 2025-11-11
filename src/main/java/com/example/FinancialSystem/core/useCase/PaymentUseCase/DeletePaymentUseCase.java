@@ -33,7 +33,7 @@ public class DeletePaymentUseCase {
                 .build();
 
         if (!payment1.getId().equals(id) && !payment2.getId().equals(id) && !payment3.getId().equals(id)) {
-            throw new PaymentIdNotFoundException();
+            throw new PaymentIdNotFoundException(id);
         }
 
         if (payment1.getId().equals(id)) {
