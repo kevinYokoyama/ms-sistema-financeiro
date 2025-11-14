@@ -1,6 +1,8 @@
 package com.example.FinancialSystem.core.useCase.PaymentUseCase;
 
+import com.example.FinancialSystem.core.domain.Installment;
 import com.example.FinancialSystem.core.domain.Payment;
+import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -9,13 +11,15 @@ import java.time.LocalDate;
 public class CreatePaymentUseCase {
 
     public Payment execute(Payment payment) {
+
         System.out.print("\nCreating a payment...");
         return Payment.builder()
-                .id(payment.getId())
+                .id("001")
+                .installment(Installment.builder().id(payment.getId()).build())
                 .amountPaid(payment.getAmountPaid())
                 .datePayment(LocalDate.now())
+                .status(PaymentStatus.EXECUTED)
                 .paymentMethod(payment.getPaymentMethod())
-                .status(payment.getStatus())
                 .build();
     }
 }

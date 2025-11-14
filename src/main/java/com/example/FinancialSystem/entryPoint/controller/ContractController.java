@@ -1,10 +1,15 @@
 package com.example.FinancialSystem.entryPoint.controller;
 
 import com.example.FinancialSystem.core.domain.Contract;
+import com.example.FinancialSystem.core.exception.Contract.ContractIdNotFoundException;
+import com.example.FinancialSystem.core.exception.Contract.ContractRequestAmountNotAllowedException;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.CreateContractUseCase;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.DeleteContractUseCase;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.EditContractUseCase;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.GetByIdContractUseCase;
+import com.example.FinancialSystem.entryPoint.dto.ContractDto;
+import com.example.FinancialSystem.entryPoint.mapper.ContractMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ContractController {
 
+    private final ContractMapper contractMapper;
     private final CreateContractUseCase createContractUseCase;
     private final EditContractUseCase editContractUseCase;
     private final GetByIdContractUseCase getByIdContractUseCase;
@@ -29,23 +35,25 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Contract create(@RequestBody Contract data) {
-        return createContractUseCase.execute(data.getId(), data.getRequestAmount());
+    public Contract create(@RequestBody @Valid ContractDto dto) {
+        var contract = contractMapper.toDomain(dto);
+        return createContractUseCase.execute(contract);
     }
 
     @PutMapping
-    public Contract edit(@RequestBody Contract contract) {
+    public Contract edit(@RequestBody @Valid ContractDto dto) throws ContractRequestAmountNotAllowedException {
+        var contract = contractMapper.toDomain(dto);
         return editContractUseCase.execute(contract);
     }
 
     @GetMapping("/{id}")
-    public Contract getById(@PathVariable String id) {
+    public Contract getById(@PathVariable @Valid String id) throws ContractIdNotFoundException {
         return getByIdContractUseCase.execute(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) {
+    public void delete(@PathVariable @Valid String id) throws ContractIdNotFoundException {
         deleteContractUseCase.execute(id);
     }
 }

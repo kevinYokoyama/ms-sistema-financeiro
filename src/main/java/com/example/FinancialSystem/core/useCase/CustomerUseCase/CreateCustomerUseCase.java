@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 public class CreateCustomerUseCase {
 
     public Customer execute(Customer customer) {
+
         System.out.print("\nCreating a customer...");
         return Customer.builder()
-                .id(customer.getId())
+                .id("0001")
                 .name(customer.getName())
                 .birthdate(customer.getBirthdate())
                 .status(CustomerStatus.ACTIVE)
