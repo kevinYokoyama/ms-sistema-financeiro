@@ -1,6 +1,9 @@
 package com.example.FinancialSystem.entryPoint.controller;
 
 import com.example.FinancialSystem.core.domain.Contract;
+import com.example.FinancialSystem.core.exception.ContractDaysOverdueNotFoundException;
+import com.example.FinancialSystem.core.exception.ContractRequestAmountNotFoundException;
+import com.example.FinancialSystem.core.exception.ContractIdNotFoundException;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.CreateContractUseCase;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.DeleteContractUseCase;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.EditContractUseCase;
@@ -29,23 +32,23 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Contract create(@RequestBody Contract data) {
-        return createContractUseCase.execute(data.getId(), data.getRequestAmount());
+    public Contract create(@RequestBody Contract data) throws ContractRequestAmountNotFoundException {
+        return createContractUseCase.execute(data.getRequestAmount());
     }
 
     @PutMapping
-    public Contract edit(@RequestBody Contract contract) {
+    public Contract edit(@RequestBody Contract contract) throws ContractDaysOverdueNotFoundException {
         return editContractUseCase.execute(contract);
     }
 
     @GetMapping("/{id}")
-    public Contract getById(@PathVariable String id) {
+    public Contract getById(@PathVariable String id) throws ContractIdNotFoundException {
         return getByIdContractUseCase.execute(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) {
+    public void delete(@PathVariable String id) throws ContractIdNotFoundException {
         deleteContractUseCase.execute(id);
     }
 }

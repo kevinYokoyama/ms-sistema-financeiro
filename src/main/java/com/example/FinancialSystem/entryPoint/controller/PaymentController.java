@@ -1,6 +1,8 @@
 package com.example.FinancialSystem.entryPoint.controller;
 
 import com.example.FinancialSystem.core.domain.Payment;
+import com.example.FinancialSystem.core.exception.PaymentIdNotFoundException;
+import com.example.FinancialSystem.core.exception.PaymentMethodNotFoundException;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.CreatePaymentUseCase;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.DeletePaymentUseCase;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.EditPaymentUseCase;
@@ -29,7 +31,7 @@ public class PaymentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Payment create(@RequestBody Payment payment) {
+    public Payment create(@RequestBody Payment payment) throws PaymentMethodNotFoundException {
         return createPaymentUseCase.execute(payment);
     }
 
@@ -39,13 +41,13 @@ public class PaymentController {
     }
 
     @GetMapping("/{id}")
-    public Payment get(@PathVariable String id) {
+    public Payment get(@PathVariable String id) throws PaymentIdNotFoundException {
         return getPaymentUseCase.execute(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) {
+    public void delete(@PathVariable String id) throws PaymentIdNotFoundException {
         deletePaymentUseCase.execute(id);
     }
 }
