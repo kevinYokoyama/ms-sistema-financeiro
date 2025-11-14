@@ -3,7 +3,7 @@ package com.example.FinancialSystem.core.useCase.PaymentUseCase;
 import com.example.FinancialSystem.core.domain.Payment;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentMethod;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
-import com.example.FinancialSystem.core.exception.PaymentIdNotFoundException;
+import com.example.FinancialSystem.core.exception.Payment.PaymentIdNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

@@ -2,7 +2,7 @@ package com.example.FinancialSystem.core.useCase.CustomerUseCase;
 
 import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
-import com.example.FinancialSystem.core.exception.CustomerIdNotFoundException;
+import com.example.FinancialSystem.core.exception.Customer.CustomerIdNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

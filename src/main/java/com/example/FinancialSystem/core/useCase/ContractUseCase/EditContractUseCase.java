@@ -1,25 +1,31 @@
 package com.example.FinancialSystem.core.useCase.ContractUseCase;
 
 import com.example.FinancialSystem.core.domain.Contract;
+import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
-import com.example.FinancialSystem.core.exception.ContractDaysOverdueNotFoundException;
+import com.example.FinancialSystem.core.exception.Contract.ContractRequestAmountNotAllowedException;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 
 @Component
 public class EditContractUseCase {
 
-    public Contract execute(Contract contract) throws ContractDaysOverdueNotFoundException {
+    public Contract execute(Contract contract) throws ContractRequestAmountNotAllowedException {
 
-        if (contract.getDaysOverdue() == null) {
-            throw new ContractDaysOverdueNotFoundException();
-        }
         var contract2 = Contract.builder()
-                .id("14")
+                .customer(Customer.builder().id(contract.getId()).build())
+                .operationPeriod(contract.getOperationPeriod())
                 .status(ContractStatus.ACTIVE)
                 .daysOverdue(10)
+                .requestAmount(BigDecimal.valueOf(10000))
                 .build();
-        contract2.setDaysOverdue(contract.getDaysOverdue());
-        System.out.println("Editing the days overdue to " + contract.getDaysOverdue());
+
+        if (contract.getRequestAmount().compareTo(BigDecimal.valueOf(500)) < 0) {
+            throw new ContractRequestAmountNotAllowedException();
+        }
+        contract2.setRequestAmount(contract.getRequestAmount());
+        System.out.println("Editing the days overdue to " + contract.getRequestAmount());
         return contract2;
     }
 }
