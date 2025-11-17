@@ -25,7 +25,7 @@ public class EditContractUseCase {
             throw new ContractRequestAmountNotAllowedException();
         }
         contract2.setRequestAmount(contract.getRequestAmount());
-        System.out.println("Editing the days overdue to " + contract.getRequestAmount());
+        System.out.println("Editing the requested amount to " + contract.getRequestAmount());
         return contract2;
     }
 }
