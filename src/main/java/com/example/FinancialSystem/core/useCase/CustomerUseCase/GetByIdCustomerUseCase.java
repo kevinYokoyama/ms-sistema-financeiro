@@ -2,6 +2,7 @@ package com.example.FinancialSystem.core.useCase.CustomerUseCase;
 
 import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
+import com.example.FinancialSystem.core.exception.CustomerIdNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -9,7 +10,8 @@ import java.time.LocalDate;
 @Component
 public class GetByIdCustomerUseCase {
 
-    public Customer execute(String id) {
+    public Customer execute(String id) throws CustomerIdNotFoundException {
+
         var customer1 = Customer.builder()
                 .id("1")
                 .name("Kevin")
@@ -28,6 +30,10 @@ public class GetByIdCustomerUseCase {
                 .birthdate(LocalDate.of(2009, 1, 3))
                 .status(CustomerStatus.ACTIVE)
                 .build();
+
+        if (!customer1.getId().equals(id) && !customer2.getId().equals(id) && !customer3.getId().equals(id)) {
+            throw new CustomerIdNotFoundException(id);
+        }
 
         if (customer1.getId().equals(id)) {
             return customer1;
