@@ -15,7 +15,7 @@ public class CreatePaymentUseCase {
         System.out.print("\nCreating a payment...");
         return Payment.builder()
                 .id("001")
-                .installment(Installment.builder().id(payment.getId()).build())
+                .installment(Installment.builder().id(payment.getInstallment().getId()).build())
                 .amountPaid(payment.getAmountPaid())
                 .datePayment(LocalDate.now())
                 .status(PaymentStatus.EXECUTED)

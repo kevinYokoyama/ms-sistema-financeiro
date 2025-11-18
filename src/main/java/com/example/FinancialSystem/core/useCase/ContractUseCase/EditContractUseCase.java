@@ -14,7 +14,7 @@ public class EditContractUseCase {
     public Contract execute(Contract contract) throws ContractRequestAmountNotAllowedException {
 
         var contract2 = Contract.builder()
-                .customer(Customer.builder().id(contract.getId()).build())
+                .customer(Customer.builder().id(contract.getCustomer().getId()).build())
                 .operationPeriod(contract.getOperationPeriod())
                 .status(ContractStatus.ACTIVE)
                 .daysOverdue(10)

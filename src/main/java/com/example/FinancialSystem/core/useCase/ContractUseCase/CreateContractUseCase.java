@@ -12,7 +12,7 @@ public class CreateContractUseCase {
 
         System.out.print("\nCreating a contract...");
         return Contract.builder()
-                .customer(Customer.builder().id(contract.getId()).build())
+                .customer(Customer.builder().id(contract.getCustomer().getId()).build())
                 .operationPeriod(contract.getOperationPeriod())
                 .requestAmount(contract.getRequestAmount())
                 .build();

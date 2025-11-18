@@ -21,7 +21,7 @@ public class EditPaymentUseCase {
                 .status(PaymentStatus.ERROR)
                 .amountPaid(payment.getAmountPaid())
                 .paymentMethod(payment.getPaymentMethod())
-                .installment(Installment.builder().id(payment.getId()).build())
+                .installment(Installment.builder().id(payment.getInstallment().getId()).build())
                 .build();
 
         payment2.setStatus(PaymentStatus.EXECUTED);
