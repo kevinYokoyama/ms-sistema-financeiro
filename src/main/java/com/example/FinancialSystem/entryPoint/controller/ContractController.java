@@ -47,13 +47,13 @@ public class ContractController {
     }
 
     @GetMapping("/{id}")
-    public Contract getById(@PathVariable @Valid String id) throws ContractIdNotFoundException {
+    public Contract getById(@PathVariable String id) throws ContractIdNotFoundException {
         return getByIdContractUseCase.execute(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable @Valid String id) throws ContractIdNotFoundException {
+    public void delete(@PathVariable String id) throws ContractIdNotFoundException {
         deleteContractUseCase.execute(id);
     }
 }
