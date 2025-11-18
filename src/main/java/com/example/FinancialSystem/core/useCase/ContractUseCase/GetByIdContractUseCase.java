@@ -2,7 +2,7 @@ package com.example.FinancialSystem.core.useCase.ContractUseCase;
 
 import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
-import com.example.FinancialSystem.core.exception.ContractIdNotFoundException;
+import com.example.FinancialSystem.core.exception.Contract.ContractIdNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

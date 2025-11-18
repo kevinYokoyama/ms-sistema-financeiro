@@ -1,15 +1,16 @@
 package com.example.FinancialSystem.entryPoint.controller;
 
 import com.example.FinancialSystem.core.domain.Customer;
-import com.example.FinancialSystem.core.exception.CustomerIdNotFoundException;
-import com.example.FinancialSystem.core.exception.CustomerNameNotAllowedException;
-import com.example.FinancialSystem.core.exception.CustomerStatusNotAllowedException;
+import com.example.FinancialSystem.core.exception.Customer.CustomerIdNotFoundException;
+import com.example.FinancialSystem.core.exception.Customer.CustomerNameNotAllowedException;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.CreateCustomerUseCase;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.DeleteCustomerUseCase;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.EditCustomerUseCase;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.GetByIdCustomerUseCase;
+import com.example.FinancialSystem.entryPoint.dto.CustomerDto;
+import com.example.FinancialSystem.entryPoint.mapper.CustomerMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CustomerController {
 
+    private final CustomerMapper customerMapper;
     private final CreateCustomerUseCase createCustomerUseCase;
     private final EditCustomerUseCase editCustomerUseCase;
     private final GetByIdCustomerUseCase getByIdCustomerUseCase;
@@ -33,13 +35,14 @@ public class CustomerController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    @DateTimeFormat(pattern = "dd/mm/yyyy")
-    public Customer create(@RequestBody Customer customer) throws CustomerStatusNotAllowedException {
+    public Customer create(@RequestBody @Valid CustomerDto dto) {
+        var customer = customerMapper.toDomain(dto);
         return createCustomerUseCase.execute(customer);
     }
 
     @PutMapping
-    public Customer edit(@RequestBody Customer customer) throws CustomerNameNotAllowedException {
+    public Customer edit(@RequestBody @Valid CustomerDto dto) throws CustomerNameNotAllowedException {
+        var customer = customerMapper.toDomain(dto);
         return editCustomerUseCase.execute(customer);
     }
 

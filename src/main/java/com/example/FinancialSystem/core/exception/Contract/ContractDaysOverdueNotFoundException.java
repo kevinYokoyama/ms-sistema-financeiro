@@ -1,4 +1,4 @@
-package com.example.FinancialSystem.core.exception;
+package com.example.FinancialSystem.core.exception.Contract;
 
 import org.apache.coyote.BadRequestException;
 
