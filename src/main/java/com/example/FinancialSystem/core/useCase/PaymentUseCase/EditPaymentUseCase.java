@@ -1,14 +1,20 @@
 package com.example.FinancialSystem.core.useCase.PaymentUseCase;
 
+import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.domain.Installment;
 import com.example.FinancialSystem.core.domain.Payment;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentMethod;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
 import com.example.FinancialSystem.core.exception.Payment.PaymentMethodNotFoundException;
+import com.example.FinancialSystem.core.gateway.PaymentGateway;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class EditPaymentUseCase {
+
+    private final PaymentGateway paymentGateway;
 
     public Payment execute(Payment payment) throws PaymentMethodNotFoundException {
 
@@ -16,17 +22,10 @@ public class EditPaymentUseCase {
             throw new PaymentMethodNotFoundException();
         }
 
-        var payment2 = Payment.builder()
-                .id("14")
-                .status(PaymentStatus.ERROR)
-                .amountPaid(payment.getAmountPaid())
-                .paymentMethod(payment.getPaymentMethod())
-                .installment(Installment.builder().id(payment.getInstallment().getId()).build())
-                .build();
-
-        payment2.setStatus(PaymentStatus.EXECUTED);
-
+        Payment editedPayment = paymentGateway.getById(payment.getId());
+        editedPayment.setStatus(PaymentStatus.EXECUTED);
         System.out.println("\nEditing the amount paid to executed");
-        return payment2;
+
+        return editedPayment;
     }
 }

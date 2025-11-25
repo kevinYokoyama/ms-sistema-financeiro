@@ -1,27 +1,28 @@
 package com.example.FinancialSystem.core.useCase.CustomerUseCase;
 
 import com.example.FinancialSystem.core.domain.Customer;
-import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
 import com.example.FinancialSystem.core.exception.Customer.CustomerNameNotAllowedException;
+import com.example.FinancialSystem.core.gateway.CustomerGateway;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class EditCustomerUseCase {
 
-    public Customer execute(Customer customer) throws CustomerNameNotAllowedException {
-        var customer2 = Customer.builder()
-                .id("149")
-                .name("Naomi")
-                .birthdate(customer.getBirthdate())
-                .status(CustomerStatus.ACTIVE)
-                .build();
+    private final CustomerGateway customerGateway;
 
-        if (customer2.getName().equals(customer.getName())){
+    public Customer execute(Customer customer) throws CustomerNameNotAllowedException {
+
+        Customer editedCustomer = customerGateway.getById(customer.getId());
+
+        if (customer.getName().equals(editedCustomer.getName())){
             throw new CustomerNameNotAllowedException(customer.getName());
         }
 
-        customer2.setName(customer.getName());
-        System.out.printf("\nEditing the name to %s", customer2.getName());
-        return customer2;
+        editedCustomer.setName(customer.getName());
+        System.out.printf("\nEditing the name to %s", editedCustomer.getName());
+
+        return editedCustomer;
     }
 }
