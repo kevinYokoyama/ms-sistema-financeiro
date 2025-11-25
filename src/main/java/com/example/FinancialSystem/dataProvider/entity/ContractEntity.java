@@ -20,6 +20,8 @@ public class ContractEntity {
     @MongoId
     private String id;
 
+    private Integer operationPeriod;
+
     private ContractStatus status;
 
     private Customer customer;

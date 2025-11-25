@@ -1,5 +1,6 @@
 package com.example.FinancialSystem.dataProvider.entity;
 
+import com.example.FinancialSystem.core.domain.Installment;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentMethod;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
 import lombok.Builder;
@@ -9,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
@@ -26,6 +26,8 @@ public class PaymentEntity {
     private LocalDateTime datePayment;
 
     private PaymentMethod paymentMethod;
+
+    private Installment installment;
 
     private PaymentStatus status;
 }
