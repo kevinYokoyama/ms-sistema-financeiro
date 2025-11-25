@@ -41,9 +41,10 @@ public class ContractController {
     }
 
     @PutMapping
-    public Contract edit(@RequestBody @Valid ContractDto dto) throws ContractRequestAmountNotAllowedException {
+    @GetMapping("/{id}")
+    public Contract edit(@PathVariable String id, @RequestBody @Valid ContractDto dto) throws ContractRequestAmountNotAllowedException, ContractIdNotFoundException {
         var contract = contractMapper.toDomain(dto);
-        return editContractUseCase.execute(contract);
+        return editContractUseCase.execute(id, contract);
     }
 
     @GetMapping("/{id}")

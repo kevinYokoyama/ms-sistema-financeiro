@@ -41,7 +41,8 @@ public class PaymentController {
     }
 
     @PutMapping
-    public Payment editStatusToCanceled(@RequestBody @Valid PaymentDto dto) throws PaymentMethodNotFoundException {
+    @GetMapping("/{id}")
+    public Payment editStatusToCanceled(@PathVariable String id, @RequestBody @Valid PaymentDto dto) throws PaymentMethodNotFoundException {
         var payment = paymentMapper.toDomain(dto);
         return editCanceledPaymentUseCase.execute(payment);
     }
