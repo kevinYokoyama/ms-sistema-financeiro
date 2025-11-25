@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static com.example.FinancialSystem.core.util.ContractUtil.getInstallmentAmount;
+import static com.example.FinancialSystem.core.util.ContractUtil.getTotalAmount;
+
 
 @Component
 @RequiredArgsConstructor
@@ -39,14 +42,6 @@ public class CreateContractUseCase {
         System.out.print("\nCreating a customer...");
 
         return contractGateway.save(contract);
-    }
-
-    private static BigDecimal getTotalAmount(Contract contract, BigDecimal monthlySetRate) {
-        return contract.getRequestAmount().multiply(monthlySetRate).multiply(BigDecimal.valueOf(contract.getOperationPeriod()));
-    }
-
-    private static BigDecimal getInstallmentAmount(Contract contract, BigDecimal totalAmount) {
-        return totalAmount.divide(BigDecimal.valueOf(contract.getOperationPeriod()));
     }
 
     private static Customer getCustomer(Contract contract) {
