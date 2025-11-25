@@ -8,6 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import static com.example.FinancialSystem.core.util.ContractUtil.getInstallmentAmount;
+import static com.example.FinancialSystem.core.util.ContractUtil.getTotalAmount;
 
 @Component
 @RequiredArgsConstructor
@@ -29,13 +33,13 @@ public class EditContractUseCase {
         var saved = getByIdContractUseCase.execute(id);
 
 
-        var totalAmount = contract.getRequestAmount().multiply(saved.getMonthlySetRate()).multiply(BigDecimal.valueOf(contract.getOperationPeriod()));
-        var installmentAmount = totalAmount.divide(BigDecimal.valueOf(contract.getOperationPeriod()));
+        var totalAmount = getTotalAmount(contract, saved.getMonthlySetRate());
+        var installmentAmount = getInstallmentAmount(contract, totalAmount);
 
         saved.setRemainingAmount(contract.getRemainingAmount());
         saved.setCustomer(contract.getCustomer());
         saved.setOperationPeriod(contract.getOperationPeriod());
-        saved.setInstallmentAmount(installmentAmount);
+        saved.setInstallmentAmount(installmentAmount.setScale(2, RoundingMode.HALF_UP));
         System.out.println("Editing the requested amount to " + contract.getRequestAmount());
 
         return saved;

@@ -42,9 +42,9 @@ public class CustomerController {
 
     @PutMapping
     @GetMapping("/{id}")
-    public Customer edit(@PathVariable String id, @RequestBody @Valid CustomerDto dto) throws CustomerNameNotAllowedException {
+    public Customer edit(@PathVariable String id, @RequestBody @Valid CustomerDto dto) throws CustomerNameNotAllowedException, CustomerIdNotFoundException{
         var customer = customerMapper.toDomain(dto);
-        return editCustomerUseCase.execute(customer);
+        return editCustomerUseCase.execute(id, customer);
     }
 
     @GetMapping("/{id}")
