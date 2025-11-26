@@ -28,7 +28,6 @@ public class EditPaymentUseCase {
         var saved = getByIdPaymentUseCase.execute(id);
 
         saved.setStatus(PaymentStatus.EXECUTED);
-        System.out.println("\nEditing the amount paid to executed");
 
         return paymentGateway.save(saved);
     }

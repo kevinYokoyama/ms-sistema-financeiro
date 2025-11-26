@@ -33,7 +33,6 @@ public class CreatePaymentUseCase {
         payment.setPaymentMethod(payment.getPaymentMethod());
         payment.setInstallment(installment);
         payment.setStatus(PaymentStatus.EXECUTED);
-        System.out.print("\nCreating a payment...");
 
         return paymentGateway.save(payment);
     }

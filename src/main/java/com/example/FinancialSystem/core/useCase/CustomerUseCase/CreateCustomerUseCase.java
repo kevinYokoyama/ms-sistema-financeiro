@@ -26,7 +26,6 @@ public class CreateCustomerUseCase {
         customer.setDocument("111.222.333-44");
         customer.setBirthdate(customer.getBirthdate());
         customer.setStatus(CustomerStatus.ACTIVE);
-        System.out.print("\nCreating a customer...");
 
         return customerGateway.save(customer);
     }
