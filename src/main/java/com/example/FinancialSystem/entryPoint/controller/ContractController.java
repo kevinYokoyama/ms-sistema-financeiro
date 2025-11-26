@@ -7,10 +7,14 @@ import com.example.FinancialSystem.core.useCase.ContractUseCase.CreateContractUs
 import com.example.FinancialSystem.core.useCase.ContractUseCase.DeleteContractUseCase;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.EditContractUseCase;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.GetByIdContractUseCase;
+import com.example.FinancialSystem.core.useCase.ContractUseCase.ListContactUseCase;
 import com.example.FinancialSystem.entryPoint.dto.ContractDto;
 import com.example.FinancialSystem.entryPoint.mapper.ContractMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +36,7 @@ public class ContractController {
     private final EditContractUseCase editContractUseCase;
     private final GetByIdContractUseCase getByIdContractUseCase;
     private final DeleteContractUseCase deleteContractUseCase;
+    private final ListContactUseCase listContactUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -49,6 +54,11 @@ public class ContractController {
     @GetMapping("/{id}")
     public Contract getById(@PathVariable String id) throws ContractIdNotFoundException {
         return getByIdContractUseCase.execute(id);
+    }
+
+    @GetMapping
+    public Page<Contract> findAll(@PageableDefault(size = 10) Pageable pageable) {
+        return listContactUseCase.execute(pageable);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -2,9 +2,13 @@ package com.example.FinancialSystem.dataProvider.gateway;
 
 import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.gateway.CustomerGateway;
+import com.example.FinancialSystem.dataProvider.entity.CustomerEntity;
 import com.example.FinancialSystem.dataProvider.mapper.CustomerEntityMapper;
 import com.example.FinancialSystem.dataProvider.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -43,7 +47,9 @@ public class CustomerGatewayImpl implements CustomerGateway {
     }
 
     @Override
-    public List<Customer> findAll() {
-        return List.of();
+    public Page<Customer> findAll(Pageable pageable) {
+        Page<CustomerEntity> entities = customerRepository.findAll(pageable);
+        List<Customer> contracts = entities.map(customerEntityMapper::toDomain).getContent();
+        return new PageImpl<>(contracts, pageable, entities.getTotalPages());
     }
 }

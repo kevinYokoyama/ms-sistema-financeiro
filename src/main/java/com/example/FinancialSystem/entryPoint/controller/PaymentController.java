@@ -7,10 +7,14 @@ import com.example.FinancialSystem.core.useCase.PaymentUseCase.CreatePaymentUseC
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.DeletePaymentUseCase;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.EditPaymentUseCase;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.GetByIdPaymentUseCase;
+import com.example.FinancialSystem.core.useCase.PaymentUseCase.ListPaymentUseCase;
 import com.example.FinancialSystem.entryPoint.dto.PaymentDto;
 import com.example.FinancialSystem.entryPoint.mapper.PaymentMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +36,7 @@ public class PaymentController {
     private final EditPaymentUseCase editCanceledPaymentUseCase;
     private final GetByIdPaymentUseCase getPaymentUseCase;
     private final DeletePaymentUseCase deletePaymentUseCase;
+    private final ListPaymentUseCase listPaymentUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -49,6 +54,11 @@ public class PaymentController {
     @GetMapping("/{id}")
     public Payment get(@PathVariable String id) throws PaymentIdNotFoundException {
         return getPaymentUseCase.execute(id);
+    }
+
+    @GetMapping
+    public Page<Payment> findAll(@PageableDefault(size = 10)Pageable pageable) {
+        return listPaymentUseCase.execute(pageable);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

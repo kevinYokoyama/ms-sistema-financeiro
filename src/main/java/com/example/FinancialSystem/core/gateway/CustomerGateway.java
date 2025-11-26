@@ -1,8 +1,8 @@
 package com.example.FinancialSystem.core.gateway;
 
 import com.example.FinancialSystem.core.domain.Customer;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface CustomerGateway {
 
@@ -14,5 +14,5 @@ public interface CustomerGateway {
 
     Customer getById(String id);
 
-    List<Customer> findAll();
+    Page<Customer> findAll(Pageable pageable);
 }

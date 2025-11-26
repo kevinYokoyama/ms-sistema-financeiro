@@ -2,9 +2,13 @@ package com.example.FinancialSystem.dataProvider.gateway;
 
 import com.example.FinancialSystem.core.domain.Payment;
 import com.example.FinancialSystem.core.gateway.PaymentGateway;
+import com.example.FinancialSystem.dataProvider.entity.PaymentEntity;
 import com.example.FinancialSystem.dataProvider.mapper.PaymentEntityMapper;
 import com.example.FinancialSystem.dataProvider.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -43,7 +47,9 @@ public class PaymentGatewayImpl implements PaymentGateway {
     }
 
     @Override
-    public List<Payment> findAll() {
-        return List.of();
+    public Page<Payment> findAll(Pageable pageable) {
+        Page<PaymentEntity> entities = paymentRepository.findAll(pageable);
+        List<Payment> contracts = entities.map(paymentEntityMapper::toDomain).getContent();
+        return new PageImpl<>(contracts, pageable, entities.getTotalPages());
     }
 }
