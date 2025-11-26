@@ -50,6 +50,6 @@ public class ContractGatewayImpl implements ContractGateway {
     public Page<Contract> findAll(Pageable pageable) {
         Page<ContractEntity> entities = contractRepository.findAll(pageable);
         List<Contract> contracts = entities.map(contractEntityMapper::toDomain).getContent();
-        return new PageImpl<>(contracts, pageable, entities.getTotalPages());
+        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
     }
 }

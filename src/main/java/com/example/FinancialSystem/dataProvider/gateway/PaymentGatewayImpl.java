@@ -50,6 +50,6 @@ public class PaymentGatewayImpl implements PaymentGateway {
     public Page<Payment> findAll(Pageable pageable) {
         Page<PaymentEntity> entities = paymentRepository.findAll(pageable);
         List<Payment> contracts = entities.map(paymentEntityMapper::toDomain).getContent();
-        return new PageImpl<>(contracts, pageable, entities.getTotalPages());
+        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
     }
 }

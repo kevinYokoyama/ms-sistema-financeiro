@@ -50,6 +50,6 @@ public class CustomerGatewayImpl implements CustomerGateway {
     public Page<Customer> findAll(Pageable pageable) {
         Page<CustomerEntity> entities = customerRepository.findAll(pageable);
         List<Customer> contracts = entities.map(customerEntityMapper::toDomain).getContent();
-        return new PageImpl<>(contracts, pageable, entities.getTotalPages());
+        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
     }
 }
