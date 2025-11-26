@@ -4,6 +4,6 @@ import org.apache.coyote.BadRequestException;
 
 public class ContractRequestAmountNotAllowedException extends BadRequestException {
     public ContractRequestAmountNotAllowedException() {
-        super("Requested amount needs to be more than R$500,00");
+        super("Requested amount needs to be more than 0");
     }
 }
