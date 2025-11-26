@@ -2,6 +2,8 @@ package com.example.FinancialSystem.core.gateway;
 
 import com.example.FinancialSystem.core.domain.Payment;
 
+import java.util.List;
+
 public interface PaymentGateway {
 
     Payment save(Payment payment);
@@ -10,7 +12,7 @@ public interface PaymentGateway {
 
     boolean existById(String id);
 
-    Payment edit(Payment contract);
-
     Payment getById(String id);
+
+    List<Payment> findAll();
 }

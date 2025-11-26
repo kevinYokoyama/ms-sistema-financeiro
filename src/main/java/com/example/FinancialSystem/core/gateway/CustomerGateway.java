@@ -2,6 +2,8 @@ package com.example.FinancialSystem.core.gateway;
 
 import com.example.FinancialSystem.core.domain.Customer;
 
+import java.util.List;
+
 public interface CustomerGateway {
 
     Customer save(Customer customer);
@@ -10,7 +12,7 @@ public interface CustomerGateway {
 
     boolean existById(String id);
 
-    Customer edit(Customer contract);
-
     Customer getById(String id);
+
+    List<Customer> findAll();
 }

@@ -7,6 +7,8 @@ import com.example.FinancialSystem.dataProvider.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class CustomerGatewayImpl implements CustomerGateway {
@@ -34,17 +36,14 @@ public class CustomerGatewayImpl implements CustomerGateway {
     }
 
     @Override
-    public Customer edit(Customer contract) {
-        var entity = customerEntityMapper.toEntity(contract);
-        var edited = customerRepository.save(entity);
+    public Customer getById(String id) {
+        var entity = customerRepository.findById(id).orElse(null);
 
-        return customerEntityMapper.toDomain(edited);
+        return customerEntityMapper.toDomain(entity);
     }
 
     @Override
-    public Customer getById(String id) {
-        var got = customerRepository.findById(id).orElse(null);
-
-        return customerEntityMapper.toDomain(got);
+    public List<Customer> findAll() {
+        return List.of();
     }
 }

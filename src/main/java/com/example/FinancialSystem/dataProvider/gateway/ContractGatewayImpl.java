@@ -7,6 +7,8 @@ import com.example.FinancialSystem.dataProvider.repository.ContractRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class ContractGatewayImpl implements ContractGateway {
@@ -22,6 +24,7 @@ public class ContractGatewayImpl implements ContractGateway {
         return contractEntityMapper.toDomain(saved);
     }
 
+
     @Override
     public void delete(String id) {
         contractRepository.deleteById(id);
@@ -33,19 +36,14 @@ public class ContractGatewayImpl implements ContractGateway {
     }
 
     @Override
-    public Contract edit(Contract contract) {
-        var entity = contractEntityMapper.toEntity(contract);
-        var edited = contractRepository.save(entity);
+    public Contract getById(String id) {
+        var entity = contractRepository.findById(id).orElse(null);
 
-        return contractEntityMapper.toDomain(edited);
+        return contractEntityMapper.toDomain(entity);
     }
 
     @Override
-    public Contract getById(String id) {
-        var got = contractRepository.findById(id).orElse(null);
-
-        return contractEntityMapper.toDomain(got);
+    public List<Contract> findAll() {
+        return List.of();
     }
-
-
 }

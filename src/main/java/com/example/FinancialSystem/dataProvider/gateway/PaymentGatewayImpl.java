@@ -7,6 +7,8 @@ import com.example.FinancialSystem.dataProvider.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class PaymentGatewayImpl implements PaymentGateway {
@@ -34,17 +36,14 @@ public class PaymentGatewayImpl implements PaymentGateway {
     }
 
     @Override
-    public Payment edit(Payment contract) {
-        var entity = paymentEntityMapper.toEntity(contract);
-        var edited = paymentRepository.save(entity);
+    public Payment getById(String id) {
+        var entity = paymentRepository.findById(id).orElse(null);
 
-        return paymentEntityMapper.toDomain(edited);
+        return paymentEntityMapper.toDomain(entity);
     }
 
     @Override
-    public Payment getById(String id) {
-        var got = paymentRepository.findById(id).orElse(null);
-
-        return paymentEntityMapper.toDomain(got);
+    public List<Payment> findAll() {
+        return List.of();
     }
 }
