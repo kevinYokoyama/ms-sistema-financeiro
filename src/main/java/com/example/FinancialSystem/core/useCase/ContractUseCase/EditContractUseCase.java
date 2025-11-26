@@ -1,31 +1,47 @@
 package com.example.FinancialSystem.core.useCase.ContractUseCase;
 
 import com.example.FinancialSystem.core.domain.Contract;
-import com.example.FinancialSystem.core.domain.Customer;
-import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
+import com.example.FinancialSystem.core.exception.Contract.ContractIdNotFoundException;
 import com.example.FinancialSystem.core.exception.Contract.ContractRequestAmountNotAllowedException;
+import com.example.FinancialSystem.core.gateway.ContractGateway;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
+import static com.example.FinancialSystem.core.util.ContractUtil.getInstallmentAmount;
+import static com.example.FinancialSystem.core.util.ContractUtil.getTotalAmount;
+
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class EditContractUseCase {
 
-    public Contract execute(Contract contract) throws ContractRequestAmountNotAllowedException {
+    private final ContractGateway contractGateway;
 
-        var contract2 = Contract.builder()
-                .customer(Customer.builder().id(contract.getId()).build())
-                .operationPeriod(contract.getOperationPeriod())
-                .status(ContractStatus.ACTIVE)
-                .daysOverdue(10)
-                .requestAmount(BigDecimal.valueOf(10000))
-                .build();
+    private final GetByIdContractUseCase getByIdContractUseCase;
 
-        if (contract.getRequestAmount().compareTo(BigDecimal.valueOf(500)) < 0) {
+    public Contract execute(String id, Contract contract) throws ContractRequestAmountNotAllowedException, ContractIdNotFoundException {
+
+        if (contract.getRequestAmount().compareTo(BigDecimal.valueOf(0)) == 0) {
+            log.error("Requested amount not allowed, it must be more than 0");
             throw new ContractRequestAmountNotAllowedException();
         }
-        contract2.setRequestAmount(contract.getRequestAmount());
-        System.out.println("Editing the requested amount to " + contract.getRequestAmount());
-        return contract2;
+        var saved = getByIdContractUseCase.execute(id);
+
+
+        var totalAmount = getTotalAmount(contract, saved.getMonthlySetRate());
+        var installmentAmount = getInstallmentAmount(contract, totalAmount);
+
+        saved.setRemainingAmount(contract.getRemainingAmount());
+        saved.setRequestAmount(contract.getRequestAmount());
+        saved.setOperationPeriod(contract.getOperationPeriod());
+        saved.setCustomer(contract.getCustomer());
+        saved.setOperationPeriod(contract.getOperationPeriod());
+        saved.setInstallmentAmount(installmentAmount.setScale(2, RoundingMode.HALF_UP));
+
+        return contractGateway.save(saved);
     }
 }

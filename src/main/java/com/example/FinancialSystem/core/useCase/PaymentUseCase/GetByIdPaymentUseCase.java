@@ -1,49 +1,25 @@
 package com.example.FinancialSystem.core.useCase.PaymentUseCase;
 
 import com.example.FinancialSystem.core.domain.Payment;
-import com.example.FinancialSystem.core.domain.enumeration.PaymentMethod;
-import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
 import com.example.FinancialSystem.core.exception.Payment.PaymentIdNotFoundException;
+import com.example.FinancialSystem.core.gateway.PaymentGateway;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class GetByIdPaymentUseCase {
 
-    public Payment execute(String id) throws PaymentIdNotFoundException {
-        var payment1 = Payment.builder()
-                .id("1")
-                .amountPaid(BigDecimal.valueOf(1000))
-                .paymentMethod(PaymentMethod.CREDIT_CARD)
-                .status(PaymentStatus.EXECUTED)
-                .build();
-        var payment2 = Payment.builder()
-                .id("2")
-                .amountPaid(BigDecimal.valueOf(2000))
-                .paymentMethod(PaymentMethod.DEBIT_CARD)
-                .status(PaymentStatus.EXECUTED)
-                .build();
-        var payment3 = Payment.builder()
-                .id("3")
-                .amountPaid(BigDecimal.valueOf(3000))
-                .paymentMethod(PaymentMethod.PIX)
-                .status(PaymentStatus.EXECUTED)
-                .build();
+    private final PaymentGateway paymentGateway;
 
-        if (!payment1.getId().equals(id) && !payment2.getId().equals(id) && !payment3.getId().equals(id)) {
+    public Payment execute(String id) throws PaymentIdNotFoundException {
+
+        if (!paymentGateway.existById(id)) {
+            log.error("Id not found");
             throw new PaymentIdNotFoundException(id);
         }
-
-        if (payment1.getId().equals(id)) {
-            return payment1;
-        }
-        if (payment2.getId().equals(id)) {
-            return payment2;
-        }
-        if (payment3.getId().equals(id)) {
-            return payment3;
-        }
-        return null;
+        return paymentGateway.getById(id);
     }
 }

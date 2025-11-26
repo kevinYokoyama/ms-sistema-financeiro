@@ -1,27 +1,32 @@
 package com.example.FinancialSystem.core.useCase.CustomerUseCase;
 
 import com.example.FinancialSystem.core.domain.Customer;
-import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
+import com.example.FinancialSystem.core.exception.Customer.CustomerIdNotFoundException;
 import com.example.FinancialSystem.core.exception.Customer.CustomerNameNotAllowedException;
+import com.example.FinancialSystem.core.gateway.CustomerGateway;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class EditCustomerUseCase {
 
-    public Customer execute(Customer customer) throws CustomerNameNotAllowedException {
-        var customer2 = Customer.builder()
-                .id("149")
-                .name("Naomi")
-                .birthdate(customer.getBirthdate())
-                .status(CustomerStatus.ACTIVE)
-                .build();
+    private final CustomerGateway customerGateway;
 
-        if (customer2.getName().equals(customer.getName())){
+    private final GetByIdCustomerUseCase getByIdCustomerUseCase;
+
+    public Customer execute(String id, Customer customer) throws CustomerNameNotAllowedException, CustomerIdNotFoundException {
+
+        var saved = getByIdCustomerUseCase.execute(id);
+        if (customer.getName().equals(saved.getName())){
+            log.error("You can't change the same name as it already was");
             throw new CustomerNameNotAllowedException(customer.getName());
         }
 
-        customer2.setName(customer.getName());
-        System.out.printf("\nEditing the name to %s", customer2.getName());
-        return customer2;
+        saved.setName(customer.getName());
+
+        return customerGateway.save(saved);
     }
 }

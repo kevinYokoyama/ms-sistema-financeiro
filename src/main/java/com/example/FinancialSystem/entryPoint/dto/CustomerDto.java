@@ -13,6 +13,9 @@ public class CustomerDto {
     @NotNull(message = "Name cannot be null")
     private String name;
 
+    @NotNull(message = "Document cannot be null")
+    private String document;
+
     @NotNull(message = "Birthdate cannot be null")
     private LocalDate birthdate;
 }
