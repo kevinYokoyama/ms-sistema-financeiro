@@ -2,6 +2,7 @@ package com.example.FinancialSystem.entryPoint.controller;
 
 import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.exception.Contract.ContractIdNotFoundException;
+import com.example.FinancialSystem.core.exception.Contract.ContractOperationPeriodNotAllowed;
 import com.example.FinancialSystem.core.exception.Contract.ContractRequestAmountNotAllowedException;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.CreateContractUseCase;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.DeleteContractUseCase;
@@ -40,7 +41,7 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Contract create(@RequestBody @Valid ContractDto dto) throws ContractRequestAmountNotAllowedException{
+    public Contract create(@RequestBody @Valid ContractDto dto) throws ContractRequestAmountNotAllowedException, ContractOperationPeriodNotAllowed {
         var contract = contractMapper.toDomain(dto);
         return createContractUseCase.execute(contract);
     }

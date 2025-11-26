@@ -3,6 +3,7 @@ package com.example.FinancialSystem.core.useCase.ContractUseCase;
 import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
+import com.example.FinancialSystem.core.exception.Contract.ContractOperationPeriodNotAllowed;
 import com.example.FinancialSystem.core.exception.Contract.ContractRequestAmountNotAllowedException;
 import com.example.FinancialSystem.core.gateway.ContractGateway;
 import lombok.RequiredArgsConstructor;
@@ -22,28 +23,32 @@ public class CreateContractUseCase {
 
     private final ContractGateway contractGateway;
 
-    public Contract execute(Contract contract) throws ContractRequestAmountNotAllowedException {
+    public Contract execute(Contract contract) throws ContractRequestAmountNotAllowedException, ContractOperationPeriodNotAllowed {
 
-        if (contract.getRequestAmount().compareTo(BigDecimal.valueOf(0)) == 0) {
+        if (contract.getRequestAmount().compareTo(BigDecimal.valueOf(0)) < 0) {
             log.error("Requested amount not allowed, it must be more than 0");
             throw new ContractRequestAmountNotAllowedException();
-
         }
+
+        if (contract.getOperationPeriod() < 0) {
+            log.error("Operation period must be more than 0");
+            throw new ContractOperationPeriodNotAllowed();
+        }
+
+        contract.setOperationPeriod(contract.getOperationPeriod());
 
         var monthlySetRate = BigDecimal.valueOf(1.25);
         var totalAmount = getTotalAmount(contract, monthlySetRate);
         var installmentAmount = getInstallmentAmount(contract, totalAmount);
         var endDate = LocalDate.now().plusMonths(contract.getOperationPeriod());
-        var customer = getCustomer(contract);
-        var daysOverdue = getDaysOverdue(endDate);
 
         contract.setStatus(ContractStatus.ACTIVE);
-        contract.setCustomer(customer);
+        contract.setCustomer(getCustomer(contract));
         contract.setTotalAmount(totalAmount);
         contract.setInstallmentAmount(installmentAmount);
         contract.setStartDate(LocalDate.now());
         contract.setEndDate(endDate);
-        contract.setDaysOverdue(daysOverdue);
+        contract.setDaysOverdue(getDaysOverdue(endDate));
         contract.setMonthlySetRate(monthlySetRate);
         contract.setRemainingAmount(getRemainingAmount(totalAmount, installmentAmount));
 
