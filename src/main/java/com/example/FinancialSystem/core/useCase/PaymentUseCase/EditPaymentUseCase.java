@@ -7,8 +7,10 @@ import com.example.FinancialSystem.core.exception.Payment.PaymentIdNotFoundExcep
 import com.example.FinancialSystem.core.exception.Payment.PaymentMethodNotFoundException;
 import com.example.FinancialSystem.core.gateway.PaymentGateway;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class EditPaymentUseCase {
@@ -20,6 +22,7 @@ public class EditPaymentUseCase {
     public Payment execute(String id, Payment payment) throws PaymentMethodNotFoundException, PaymentIdNotFoundException {
 
         if (!payment.getPaymentMethod().equals(PaymentMethod.PIX) && !payment.getPaymentMethod().equals(PaymentMethod.DEBIT_CARD) && !payment.getPaymentMethod().equals(PaymentMethod.CREDIT_CARD)) {
+            log.error("The method must be PIX, debit card or credit card");
             throw new PaymentMethodNotFoundException();
         }
         var saved = getByIdPaymentUseCase.execute(id);
