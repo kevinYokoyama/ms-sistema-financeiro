@@ -35,13 +35,12 @@ public class PaymentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Payment create(@RequestBody @Valid PaymentDto dto) {
+    public Payment create(@RequestBody @Valid PaymentDto dto) throws PaymentMethodNotFoundException{
         var payment = paymentMapper.toDomain(dto);
         return createPaymentUseCase.execute(payment);
     }
 
-    @PutMapping
-    @GetMapping("/{id}")
+    @PutMapping("/{id}")
     public Payment editStatusToCanceled(@PathVariable String id, @RequestBody @Valid PaymentDto dto) throws PaymentMethodNotFoundException, PaymentIdNotFoundException {
         var payment = paymentMapper.toDomain(dto);
         return editCanceledPaymentUseCase.execute(id, payment);

@@ -35,13 +35,12 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Contract create(@RequestBody @Valid ContractDto dto) {
+    public Contract create(@RequestBody @Valid ContractDto dto) throws ContractRequestAmountNotAllowedException{
         var contract = contractMapper.toDomain(dto);
         return createContractUseCase.execute(contract);
     }
 
-    @PutMapping
-    @GetMapping("/{id}")
+    @PutMapping("/{id}")
     public Contract edit(@PathVariable String id, @RequestBody @Valid ContractDto dto) throws ContractRequestAmountNotAllowedException, ContractIdNotFoundException {
         var contract = contractMapper.toDomain(dto);
         return editContractUseCase.execute(id, contract);
