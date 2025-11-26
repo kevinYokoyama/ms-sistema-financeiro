@@ -23,13 +23,9 @@ public class EditContractUseCase {
 
     public Contract execute(String id, Contract contract) throws ContractRequestAmountNotAllowedException, ContractIdNotFoundException {
 
-        if (!contractGateway.existById(contract.getId())) {
-            throw new ContractIdNotFoundException(contract.getId());
-        }
-        if (contract.getRequestAmount().compareTo(BigDecimal.valueOf(500)) < 0) {
+        if (contract.getRequestAmount().compareTo(BigDecimal.valueOf(0)) == 0) {
             throw new ContractRequestAmountNotAllowedException();
         }
-
         var saved = getByIdContractUseCase.execute(id);
 
 
@@ -37,11 +33,12 @@ public class EditContractUseCase {
         var installmentAmount = getInstallmentAmount(contract, totalAmount);
 
         saved.setRemainingAmount(contract.getRemainingAmount());
+        saved.setRequestAmount(contract.getRequestAmount());
+        saved.setOperationPeriod(contract.getOperationPeriod());
         saved.setCustomer(contract.getCustomer());
         saved.setOperationPeriod(contract.getOperationPeriod());
         saved.setInstallmentAmount(installmentAmount.setScale(2, RoundingMode.HALF_UP));
-        System.out.println("Editing the requested amount to " + contract.getRequestAmount());
 
-        return saved;
+        return contractGateway.save(saved);
     }
 }

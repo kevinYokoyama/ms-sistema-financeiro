@@ -25,6 +25,6 @@ public class EditCustomerUseCase {
         saved.setName(customer.getName());
         System.out.printf("\nEditing the name to %s", saved.getName());
 
-        return saved;
+        return customerGateway.save(saved);
     }
 }
