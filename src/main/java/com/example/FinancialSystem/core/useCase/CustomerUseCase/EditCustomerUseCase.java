@@ -5,8 +5,10 @@ import com.example.FinancialSystem.core.exception.Customer.CustomerIdNotFoundExc
 import com.example.FinancialSystem.core.exception.Customer.CustomerNameNotAllowedException;
 import com.example.FinancialSystem.core.gateway.CustomerGateway;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class EditCustomerUseCase {
@@ -19,6 +21,7 @@ public class EditCustomerUseCase {
 
         var saved = getByIdCustomerUseCase.execute(id);
         if (customer.getName().equals(saved.getName())){
+            log.error("You can't change the same name as it already was");
             throw new CustomerNameNotAllowedException(customer.getName());
         }
 

@@ -6,6 +6,7 @@ import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
 import com.example.FinancialSystem.core.exception.Contract.ContractRequestAmountNotAllowedException;
 import com.example.FinancialSystem.core.gateway.ContractGateway;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 import static com.example.FinancialSystem.core.util.ContractUtil.getInstallmentAmount;
 import static com.example.FinancialSystem.core.util.ContractUtil.getTotalAmount;
 
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CreateContractUseCase {
@@ -24,7 +25,9 @@ public class CreateContractUseCase {
     public Contract execute(Contract contract) throws ContractRequestAmountNotAllowedException {
 
         if (contract.getRequestAmount().compareTo(BigDecimal.valueOf(0)) == 0) {
+            log.error("Requested amount not allowed, it must be more than 0");
             throw new ContractRequestAmountNotAllowedException();
+
         }
 
         var monthlySetRate = BigDecimal.valueOf(1.25);

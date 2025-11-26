@@ -5,11 +5,10 @@ import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
 import com.example.FinancialSystem.core.exception.Customer.CustomerBirthdateNotAllowed;
 import com.example.FinancialSystem.core.gateway.CustomerGateway;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.Period;
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CreateCustomerUseCase {
@@ -18,7 +17,8 @@ public class CreateCustomerUseCase {
 
     public Customer execute(Customer customer) throws CustomerBirthdateNotAllowed {
 
-        if (Period.between(customer.getBirthdate(), LocalDate.now()).getYears() < 18) {
+        if (customer.getBirthdate().getYear() < 18) {
+            log.error("Customer must be more than eighteen years old");
             throw new CustomerBirthdateNotAllowed();
         }
 
