@@ -14,9 +14,9 @@ public class GetByIdContractUseCase {
 
     public Contract execute(String id) throws ContractIdNotFoundException {
 
-        if (contractGateway.existById(id)) {
-            return contractGateway.getById(id);
+        if (!contractGateway.existById(id)) {
+            throw new ContractIdNotFoundException(id);
         }
-        throw new ContractIdNotFoundException(id);
+        return contractGateway.getById(id);
     }
 }

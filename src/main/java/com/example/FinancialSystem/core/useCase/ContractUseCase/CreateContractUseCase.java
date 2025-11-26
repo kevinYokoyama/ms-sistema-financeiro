@@ -3,6 +3,7 @@ package com.example.FinancialSystem.core.useCase.ContractUseCase;
 import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
+import com.example.FinancialSystem.core.exception.Contract.ContractRequestAmountNotAllowedException;
 import com.example.FinancialSystem.core.gateway.ContractGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,11 @@ public class CreateContractUseCase {
 
     private final ContractGateway contractGateway;
 
-    public Contract execute(Contract contract) {
+    public Contract execute(Contract contract) throws ContractRequestAmountNotAllowedException {
+
+        if (contract.getRequestAmount().compareTo(BigDecimal.valueOf(0)) == 0) {
+            throw new ContractRequestAmountNotAllowedException();
+        }
 
         var monthlySetRate = BigDecimal.valueOf(1.25);
         var totalAmount = getTotalAmount(contract, monthlySetRate);
@@ -38,8 +43,6 @@ public class CreateContractUseCase {
         contract.setDaysOverdue(daysOverdue);
         contract.setMonthlySetRate(monthlySetRate);
         contract.setRemainingAmount(getRemainingAmount(totalAmount, installmentAmount));
-
-        System.out.print("\nCreating a customer...");
 
         return contractGateway.save(contract);
     }

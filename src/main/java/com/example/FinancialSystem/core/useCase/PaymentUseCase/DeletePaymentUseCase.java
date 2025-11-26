@@ -13,10 +13,9 @@ public class DeletePaymentUseCase {
 
     public void execute(String id) throws PaymentIdNotFoundException {
 
-        if (paymentGateway.existById(id)) {
-            System.out.printf("Id %s removed successfully", id);
-            paymentGateway.delete(id);
+        if (!paymentGateway.existById(id)) {
+            throw new PaymentIdNotFoundException(id);
         }
-        throw new PaymentIdNotFoundException(id);
+        paymentGateway.delete(id);
     }
 }

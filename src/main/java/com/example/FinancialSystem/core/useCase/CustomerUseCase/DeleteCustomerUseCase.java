@@ -13,10 +13,9 @@ public class DeleteCustomerUseCase {
 
     public void execute(String id) throws CustomerIdNotFoundException {
 
-        if (customerGateway.existById(id)){
-            System.out.printf("Id %s removed successfully", id);
-            customerGateway.delete(id);
+        if (!customerGateway.existById(id)){
+            throw new CustomerIdNotFoundException(id);
         }
-        throw new CustomerIdNotFoundException(id);
+        customerGateway.delete(id);
     }
 }

@@ -14,9 +14,9 @@ public class GetByIdCustomerUseCase {
 
     public Customer execute(String id) throws CustomerIdNotFoundException {
 
-        if (customerGateway.existById(id)) {
-            return customerGateway.getById(id);
+        if (!customerGateway.existById(id)) {
+            throw new CustomerIdNotFoundException(id);
         }
-        throw new CustomerIdNotFoundException(id);
+        return customerGateway.getById(id);
     }
 }

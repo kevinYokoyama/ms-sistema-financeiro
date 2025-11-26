@@ -14,9 +14,9 @@ public class GetByIdPaymentUseCase {
 
     public Payment execute(String id) throws PaymentIdNotFoundException {
 
-        if (paymentGateway.existById(id)) {
-            return paymentGateway.getById(id);
+        if (!paymentGateway.existById(id)) {
+            throw new PaymentIdNotFoundException(id);
         }
-        throw new PaymentIdNotFoundException(id);
+        return paymentGateway.getById(id);
     }
 }
