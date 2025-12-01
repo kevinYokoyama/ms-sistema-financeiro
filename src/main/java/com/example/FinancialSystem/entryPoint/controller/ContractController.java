@@ -9,6 +9,7 @@ import com.example.FinancialSystem.core.useCase.ContractUseCase.DeleteContractUs
 import com.example.FinancialSystem.core.useCase.ContractUseCase.EditContractUseCase;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.GetByIdContractUseCase;
 import com.example.FinancialSystem.core.useCase.ContractUseCase.ListContactUseCase;
+import com.example.FinancialSystem.entryPoint.controller.swagger.ContractControllerApi;
 import com.example.FinancialSystem.entryPoint.dto.ContractDto;
 import com.example.FinancialSystem.entryPoint.mapper.ContractMapper;
 import jakarta.validation.Valid;
@@ -30,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/contracts")
 @RequiredArgsConstructor
-public class ContractController {
+public class ContractController implements ContractControllerApi {
 
     private final ContractMapper contractMapper;
     private final CreateContractUseCase createContractUseCase;
