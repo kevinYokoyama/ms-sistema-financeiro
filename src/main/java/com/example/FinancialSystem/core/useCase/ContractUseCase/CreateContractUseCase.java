@@ -35,15 +35,15 @@ public class CreateContractUseCase {
             throw new ContractOperationPeriodNotAllowed();
         }
 
-        contract.setOperationPeriod(contract.getOperationPeriod());
 
         var monthlySetRate = BigDecimal.valueOf(1.25);
         var totalAmount = getTotalAmount(contract, monthlySetRate);
         var installmentAmount = getInstallmentAmount(contract, totalAmount);
         var endDate = LocalDate.now().plusMonths(contract.getOperationPeriod());
 
+        contract.setOperationPeriod(contract.getOperationPeriod());
         contract.setStatus(ContractStatus.ACTIVE);
-        contract.setCustomer(getCustomer(contract));
+        contract.setCustomer(contract.getCustomer());
         contract.setTotalAmount(totalAmount);
         contract.setInstallmentAmount(installmentAmount);
         contract.setStartDate(LocalDate.now());

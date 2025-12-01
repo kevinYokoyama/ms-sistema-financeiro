@@ -31,7 +31,7 @@ public interface ContractControllerApi {
             @ApiResponse(responseCode = "200", description = "Return a contract already edited", content = {@Content(schema = @Schema(implementation = Contract.class))}),
             @ApiResponse(responseCode = "400", description = "Return a message error showing what is wrong", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
-    Contract edit(String id, ContractDto dto) throws ContractRequestAmountNotAllowedException, ContractIdNotFoundException;
+    Contract edit(String id, ContractDto dto) throws ContractRequestAmountNotAllowedException, ContractIdNotFoundException, ContractOperationPeriodNotAllowed;
 
     @Operation(summary = "Search a contract by their id", description = "Search for a contract by the id in the path")
     @ApiResponses({

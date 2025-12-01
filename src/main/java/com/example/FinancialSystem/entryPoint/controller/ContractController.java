@@ -48,7 +48,7 @@ public class ContractController implements ContractControllerApi {
     }
 
     @PutMapping("/{id}")
-    public Contract edit(@PathVariable String id, @RequestBody @Valid ContractDto dto) throws ContractRequestAmountNotAllowedException, ContractIdNotFoundException {
+    public Contract edit(@PathVariable String id, @RequestBody @Valid ContractDto dto) throws ContractRequestAmountNotAllowedException, ContractIdNotFoundException, ContractOperationPeriodNotAllowed {
         var contract = contractMapper.toDomain(dto);
         return editContractUseCase.execute(id, contract);
     }
