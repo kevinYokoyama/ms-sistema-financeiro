@@ -23,7 +23,7 @@ public class CreateCustomerUseCase {
         }
 
         customer.setName(customer.getName());
-        customer.setDocument("111.222.333-44");
+        customer.setDocument(customer.getDocument());
         customer.setBirthdate(customer.getBirthdate());
         customer.setStatus(CustomerStatus.ACTIVE);
 
