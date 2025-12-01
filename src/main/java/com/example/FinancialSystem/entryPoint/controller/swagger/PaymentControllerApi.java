@@ -1,6 +1,7 @@
 package com.example.FinancialSystem.entryPoint.controller.swagger;
 
 import com.example.FinancialSystem.core.domain.Payment;
+import com.example.FinancialSystem.core.exception.Payment.PaymentAmountPaidNotAllowdException;
 import com.example.FinancialSystem.core.exception.Payment.PaymentIdNotFoundException;
 import com.example.FinancialSystem.core.exception.Payment.PaymentMethodNotFoundException;
 import com.example.FinancialSystem.entryPoint.dto.PaymentDto;
@@ -23,14 +24,14 @@ public interface PaymentControllerApi {
             @ApiResponse(responseCode = "201", description = "Return the created payment", content = {@Content(schema = @Schema(implementation = Payment.class))}),
             @ApiResponse(responseCode = "400", description = "Return a message error showing what is wrong", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
-    Payment create(PaymentDto dto) throws PaymentMethodNotFoundException;
+    Payment create(PaymentDto dto) throws PaymentMethodNotFoundException, PaymentAmountPaidNotAllowdException;
 
     @Operation(summary = "Edit a payment", description = "Update the payment method")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Return a payment already edited", content = {@Content(schema = @Schema(implementation = Payment.class))}),
             @ApiResponse(responseCode = "400", description = "Return a message error showing what is wrong", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
-    Payment editStatusToCanceled(String id, PaymentDto dto) throws PaymentMethodNotFoundException, PaymentIdNotFoundException;
+    Payment editStatusToCanceled(String id, PaymentDto dto) throws PaymentMethodNotFoundException, PaymentIdNotFoundException, PaymentAmountPaidNotAllowdException;
 
     @Operation(summary = "Search a payment by their id", description = "Search for a payment by the id in the path")
     @ApiResponses({

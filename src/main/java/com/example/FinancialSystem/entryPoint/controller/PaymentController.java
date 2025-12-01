@@ -42,13 +42,13 @@ public class PaymentController implements PaymentControllerApi {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Payment create(@RequestBody @Valid PaymentDto dto) throws PaymentMethodNotFoundException {
+    public Payment create(@RequestBody @Valid PaymentDto dto) throws PaymentMethodNotFoundException, PaymentAmountPaidNotAllowdException {
         var payment = paymentMapper.toDomain(dto);
         return createPaymentUseCase.execute(payment);
     }
 
     @PutMapping("/{id}")
-    public Payment editStatusToCanceled(@PathVariable String id, @RequestBody @Valid PaymentDto dto) throws PaymentMethodNotFoundException, PaymentIdNotFoundException {
+    public Payment editStatusToCanceled(@PathVariable String id, @RequestBody @Valid PaymentDto dto) throws PaymentMethodNotFoundException, PaymentIdNotFoundException, PaymentAmountPaidNotAllowdException {
         var payment = paymentMapper.toDomain(dto);
         return editCanceledPaymentUseCase.execute(id, payment);
     }
