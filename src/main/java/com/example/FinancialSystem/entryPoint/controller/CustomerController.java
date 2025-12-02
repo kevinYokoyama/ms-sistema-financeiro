@@ -9,6 +9,7 @@ import com.example.FinancialSystem.core.useCase.CustomerUseCase.DeleteCustomerUs
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.EditCustomerUseCase;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.GetByIdCustomerUseCase;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.ListCustomerUseCase;
+import com.example.FinancialSystem.entryPoint.controller.swagger.CustomerControllerApi;
 import com.example.FinancialSystem.entryPoint.dto.CustomerDto;
 import com.example.FinancialSystem.entryPoint.mapper.CustomerMapper;
 import jakarta.validation.Valid;
@@ -30,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/customers")
 @RequiredArgsConstructor
-public class CustomerController {
+public class CustomerController implements CustomerControllerApi {
 
     private final CustomerMapper customerMapper;
     private final CreateCustomerUseCase createCustomerUseCase;
@@ -47,7 +48,7 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public Customer edit(@PathVariable String id, @RequestBody @Valid CustomerDto dto) throws CustomerNameNotAllowedException, CustomerIdNotFoundException{
+    public Customer edit(@PathVariable String id, @RequestBody @Valid CustomerDto dto) throws CustomerNameNotAllowedException, CustomerIdNotFoundException {
         var customer = customerMapper.toDomain(dto);
         return editCustomerUseCase.execute(id, customer);
     }

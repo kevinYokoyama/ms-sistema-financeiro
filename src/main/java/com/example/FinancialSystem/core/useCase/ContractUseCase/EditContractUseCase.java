@@ -2,6 +2,7 @@ package com.example.FinancialSystem.core.useCase.ContractUseCase;
 
 import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.exception.Contract.ContractIdNotFoundException;
+import com.example.FinancialSystem.core.exception.Contract.ContractOperationPeriodNotAllowed;
 import com.example.FinancialSystem.core.exception.Contract.ContractRequestAmountNotAllowedException;
 import com.example.FinancialSystem.core.gateway.ContractGateway;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +24,15 @@ public class EditContractUseCase {
 
     private final GetByIdContractUseCase getByIdContractUseCase;
 
-    public Contract execute(String id, Contract contract) throws ContractRequestAmountNotAllowedException, ContractIdNotFoundException {
+    public Contract execute(String id, Contract contract) throws ContractRequestAmountNotAllowedException, ContractIdNotFoundException, ContractOperationPeriodNotAllowed {
 
-        if (contract.getRequestAmount().compareTo(BigDecimal.valueOf(0)) == 0) {
+        if (contract.getRequestAmount().compareTo(BigDecimal.valueOf(0)) <= 0) {
             log.error("Requested amount not allowed, it must be more than 0");
             throw new ContractRequestAmountNotAllowedException();
+        }
+        if (contract.getOperationPeriod() <= 0) {
+            log.error("Operation period not allowed, it must be more than 0");
+            throw new ContractOperationPeriodNotAllowed();
         }
         var saved = getByIdContractUseCase.execute(id);
 
@@ -38,8 +43,7 @@ public class EditContractUseCase {
         saved.setRemainingAmount(contract.getRemainingAmount());
         saved.setRequestAmount(contract.getRequestAmount());
         saved.setOperationPeriod(contract.getOperationPeriod());
-        saved.setCustomer(contract.getCustomer());
-        saved.setOperationPeriod(contract.getOperationPeriod());
+        saved.setTotalAmount(totalAmount);
         saved.setInstallmentAmount(installmentAmount.setScale(2, RoundingMode.HALF_UP));
 
         return contractGateway.save(saved);

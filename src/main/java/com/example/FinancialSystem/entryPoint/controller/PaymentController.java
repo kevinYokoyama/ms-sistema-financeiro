@@ -1,6 +1,7 @@
 package com.example.FinancialSystem.entryPoint.controller;
 
 import com.example.FinancialSystem.core.domain.Payment;
+import com.example.FinancialSystem.core.exception.Payment.PaymentAmountPaidNotAllowdException;
 import com.example.FinancialSystem.core.exception.Payment.PaymentIdNotFoundException;
 import com.example.FinancialSystem.core.exception.Payment.PaymentMethodNotFoundException;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.CreatePaymentUseCase;
@@ -8,6 +9,7 @@ import com.example.FinancialSystem.core.useCase.PaymentUseCase.DeletePaymentUseC
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.EditPaymentUseCase;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.GetByIdPaymentUseCase;
 import com.example.FinancialSystem.core.useCase.PaymentUseCase.ListPaymentUseCase;
+import com.example.FinancialSystem.entryPoint.controller.swagger.PaymentControllerApi;
 import com.example.FinancialSystem.entryPoint.dto.PaymentDto;
 import com.example.FinancialSystem.entryPoint.mapper.PaymentMapper;
 import jakarta.validation.Valid;
@@ -29,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/payments")
 @RequiredArgsConstructor
-public class PaymentController {
+public class PaymentController implements PaymentControllerApi {
 
     private final PaymentMapper paymentMapper;
     private final CreatePaymentUseCase createPaymentUseCase;
@@ -40,13 +42,13 @@ public class PaymentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Payment create(@RequestBody @Valid PaymentDto dto) throws PaymentMethodNotFoundException{
+    public Payment create(@RequestBody @Valid PaymentDto dto) throws PaymentMethodNotFoundException, PaymentAmountPaidNotAllowdException {
         var payment = paymentMapper.toDomain(dto);
         return createPaymentUseCase.execute(payment);
     }
 
     @PutMapping("/{id}")
-    public Payment editStatusToCanceled(@PathVariable String id, @RequestBody @Valid PaymentDto dto) throws PaymentMethodNotFoundException, PaymentIdNotFoundException {
+    public Payment editStatusToCanceled(@PathVariable String id, @RequestBody @Valid PaymentDto dto) throws PaymentMethodNotFoundException, PaymentIdNotFoundException, PaymentAmountPaidNotAllowdException {
         var payment = paymentMapper.toDomain(dto);
         return editCanceledPaymentUseCase.execute(id, payment);
     }
