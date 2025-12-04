@@ -2,7 +2,7 @@ package com.example.FinancialSystem.core.useCase.PaymentUseCase;
 
 import com.example.FinancialSystem.core.domain.Payment;
 import com.example.FinancialSystem.core.exception.Payment.PaymentIdNotFoundException;
-import com.example.FinancialSystem.core.gateway.PaymentGateway;
+import com.example.FinancialSystem.core.gateway.GenericGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GetByIdPaymentUseCase {
 
-    private final PaymentGateway paymentGateway;
+    private final GenericGateway<Payment> paymentGateway;
 
     public Payment execute(String id) throws PaymentIdNotFoundException {
 

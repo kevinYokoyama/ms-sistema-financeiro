@@ -6,7 +6,7 @@ import com.example.FinancialSystem.core.domain.enumeration.PaymentMethod;
 import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
 import com.example.FinancialSystem.core.exception.Payment.PaymentAmountPaidNotAllowdException;
 import com.example.FinancialSystem.core.exception.Payment.PaymentMethodNotFoundException;
-import com.example.FinancialSystem.core.gateway.PaymentGateway;
+import com.example.FinancialSystem.core.gateway.GenericGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class CreatePaymentUseCase {
 
-    private final PaymentGateway paymentGateway;
+    private final GenericGateway<Payment> paymentGateway;
 
     public Payment execute(Payment payment) throws PaymentMethodNotFoundException, PaymentAmountPaidNotAllowdException {
 

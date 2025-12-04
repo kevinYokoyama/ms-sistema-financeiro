@@ -4,7 +4,7 @@ import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.exception.Contract.ContractIdNotFoundException;
 import com.example.FinancialSystem.core.exception.Contract.ContractOperationPeriodNotAllowed;
 import com.example.FinancialSystem.core.exception.Contract.ContractRequestAmountNotAllowedException;
-import com.example.FinancialSystem.core.gateway.ContractGateway;
+import com.example.FinancialSystem.core.gateway.GenericGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ import static com.example.FinancialSystem.core.util.ContractUtil.getTotalAmount;
 @RequiredArgsConstructor
 public class EditContractUseCase {
 
-    private final ContractGateway contractGateway;
+    private final GenericGateway<Contract> contractGateway;
 
     private final GetByIdContractUseCase getByIdContractUseCase;
 
