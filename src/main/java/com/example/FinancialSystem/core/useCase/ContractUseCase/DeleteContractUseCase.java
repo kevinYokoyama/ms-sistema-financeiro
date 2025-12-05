@@ -1,7 +1,8 @@
 package com.example.FinancialSystem.core.useCase.ContractUseCase;
 
+import com.example.FinancialSystem.core.domain.Contract;
 import com.example.FinancialSystem.core.exception.Contract.ContractIdNotFoundException;
-import com.example.FinancialSystem.core.gateway.ContractGateway;
+import com.example.FinancialSystem.core.gateway.GenericGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DeleteContractUseCase {
 
-    private final ContractGateway contractGateway;
+    private final GenericGateway<Contract> contractGateway;
 
     public void execute(String id) throws ContractIdNotFoundException {
 

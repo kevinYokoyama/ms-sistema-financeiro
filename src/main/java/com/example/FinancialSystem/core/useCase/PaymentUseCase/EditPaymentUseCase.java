@@ -6,7 +6,7 @@ import com.example.FinancialSystem.core.domain.enumeration.PaymentStatus;
 import com.example.FinancialSystem.core.exception.Payment.PaymentAmountPaidNotAllowdException;
 import com.example.FinancialSystem.core.exception.Payment.PaymentIdNotFoundException;
 import com.example.FinancialSystem.core.exception.Payment.PaymentMethodNotFoundException;
-import com.example.FinancialSystem.core.gateway.PaymentGateway;
+import com.example.FinancialSystem.core.gateway.GenericGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class EditPaymentUseCase {
 
-    private final PaymentGateway paymentGateway;
+    private final GenericGateway<Payment> paymentGateway;
 
     private final GetByIdPaymentUseCase getByIdPaymentUseCase;
 

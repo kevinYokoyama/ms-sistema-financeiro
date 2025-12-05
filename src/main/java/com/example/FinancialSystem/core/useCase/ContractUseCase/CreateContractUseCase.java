@@ -5,7 +5,7 @@ import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.domain.enumeration.ContractStatus;
 import com.example.FinancialSystem.core.exception.Contract.ContractOperationPeriodNotAllowed;
 import com.example.FinancialSystem.core.exception.Contract.ContractRequestAmountNotAllowedException;
-import com.example.FinancialSystem.core.gateway.ContractGateway;
+import com.example.FinancialSystem.core.gateway.GenericGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ import static com.example.FinancialSystem.core.util.ContractUtil.getTotalAmount;
 @RequiredArgsConstructor
 public class CreateContractUseCase {
 
-    private final ContractGateway contractGateway;
+    private final GenericGateway<Contract> contractGateway;
 
     public Contract execute(Contract contract) throws ContractRequestAmountNotAllowedException, ContractOperationPeriodNotAllowed {
 
