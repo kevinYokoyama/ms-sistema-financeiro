@@ -21,7 +21,7 @@ public class CreateContractConsumer {
     private final CreateContractUseCase createContractUseCase;
 
     @Bean
-    Consumer<Message<ContractDto>> createLoanEvent() {
+    Consumer<Message<ContractDto>> createContractEvent() {
         return this::receive;
     }
 

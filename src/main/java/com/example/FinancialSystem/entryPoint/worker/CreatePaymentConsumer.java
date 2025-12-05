@@ -21,14 +21,14 @@ public class CreatePaymentConsumer {
     private final CreatePaymentUseCase createPaymentUseCase;
 
     @Bean
-    Consumer<Message<PaymentDto>> createLoanEvent() {
+    Consumer<Message<PaymentDto>> createPaymentEvent() {
         return this::receive;
     }
 
     public void receive(Message<PaymentDto> message) {
         try {
-            var customer = paymentMapper.toDomain(message.getPayload());
-            createPaymentUseCase.execute(customer);
+            var payment = paymentMapper.toDomain(message.getPayload());
+            createPaymentUseCase.execute(payment);
         } catch (PaymentMethodNotFoundException | PaymentAmountPaidNotAllowdException e) {
             throw new RuntimeException(e);
         }

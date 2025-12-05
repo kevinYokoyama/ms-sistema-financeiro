@@ -20,7 +20,7 @@ public class CreateCustomerConsumer {
     private final CreateCustomerUseCase createCustomerUseCase;
 
     @Bean
-    Consumer<Message<CustomerDto>> createLoanEvent() {
+    Consumer<Message<CustomerDto>> createCustomerEvent() {
         return this::receive;
     }
 
