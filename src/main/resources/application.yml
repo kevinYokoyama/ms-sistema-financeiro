@@ -8,7 +8,7 @@
         bindings:
           createContractEvent-in-0:
             destination: sgep-contract-events
-            group: sgep-contract-events-group
+            group: sgep-loan-events-group
             content-type: application/json
           createCustomerEvent-in-0:
             destination: sgep-customer-events
