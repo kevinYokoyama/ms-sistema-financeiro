@@ -1,18 +1,17 @@
 package com.example.FinancialSystem.core.gateway;
 
-import com.example.FinancialSystem.core.domain.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface CustomerGateway {
+public interface GenericGateway<E> {
 
-    Customer save(Customer customer);
+    E save(E customer);
 
     void delete(String id);
 
     boolean existById(String id);
 
-    Customer getById(String id);
+    E getById(String id);
 
-    Page<Customer> findAll(Pageable pageable);
+    Page<E> findAll(Pageable pageable);
 }
