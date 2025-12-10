@@ -3,7 +3,10 @@
       name: FinancialSystem
     cloud:
       function:
-        definition: createLoanEvent
+        definition:
+          createContractEvent;
+          createCustomerEvent;
+          createPaymentEvent;
       stream:
         bindings:
           createContractEvent-in-0:
