@@ -2,6 +2,7 @@ package com.example.FinancialSystem.dataProvider.gateway;
 
 import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.gateway.GenericGateway;
+import com.example.FinancialSystem.dataProvider.adapter.AddressAdapter;
 import com.example.FinancialSystem.dataProvider.entity.CustomerEntity;
 import com.example.FinancialSystem.dataProvider.mapper.CustomerEntityMapper;
 import com.example.FinancialSystem.dataProvider.repository.CustomerRepository;
@@ -19,12 +20,26 @@ public class CustomerGatewayImpl implements GenericGateway<Customer> {
 
     private final CustomerRepository customerRepository;
     private final CustomerEntityMapper customerEntityMapper;
+    private final AddressAdapter addressAdapter;
 
     @Override
     public Customer save(Customer customer) {
 
         var entity = customerEntityMapper.toEntity(customer);
         var saved = customerRepository.save(entity);
+
+        var addressResponse = addressAdapter.getAddress(customer.getZipcode());
+        var addressEntity = CustomerEntity.CustomerAddress.builder()
+                .zipcode(addressResponse.zipcode())
+                .logradouro(addressResponse.logradouro())
+                .complemento(addressResponse.complemento())
+                .unidade(addressResponse.unidade())
+                .bairro(addressResponse.bairro())
+                .localidade(addressResponse.localidade())
+                .uf(addressResponse.uf())
+                .estado(addressResponse.estado())
+                .build();
+        entity.setAddress(addressEntity);
 
         return customerEntityMapper.toDomain(saved);
     }

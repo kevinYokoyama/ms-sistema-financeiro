@@ -1,6 +1,7 @@
 package com.example.FinancialSystem.entryPoint.worker;
 
 import com.example.FinancialSystem.core.exception.Customer.CustomerBirthdateNotAllowed;
+import com.example.FinancialSystem.core.exception.Customer.CustomerZipCodeNotFoundException;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.CreateCustomerUseCase;
 import com.example.FinancialSystem.entryPoint.dto.CustomerDto;
 import com.example.FinancialSystem.entryPoint.mapper.CustomerMapper;
@@ -30,7 +31,7 @@ public class CreateCustomerConsumer {
         try {
             var customer = customerMapper.toDomain(message.getPayload());
             createCustomerUseCase.execute(customer);
-        } catch (CustomerBirthdateNotAllowed e) {
+        } catch (CustomerBirthdateNotAllowed | CustomerZipCodeNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

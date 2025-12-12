@@ -3,6 +3,7 @@ package com.example.FinancialSystem.dataProvider.entity;
 import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,4 +26,28 @@ public class CustomerEntity {
     private LocalDate birthdate;
 
     private CustomerStatus status;
+
+    @Setter
+    private CustomerAddress address;
+
+    @Builder
+    @Getter
+    public static class CustomerAddress {
+
+        private String zipcode;
+
+        private String logradouro;
+
+        private String complemento;
+
+        private String unidade;
+
+        private String bairro;
+
+        private String localidade;
+
+        private String uf;
+
+        private String estado;
+    }
 }

@@ -2,6 +2,7 @@
 /target
 /.idea
 *.class
+.env
 
 # Log file
 *.log

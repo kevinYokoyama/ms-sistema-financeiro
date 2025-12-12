@@ -21,4 +21,6 @@ public class Customer {
     private LocalDate birthdate;
 
     private CustomerStatus status;
+
+    private String zipcode;
 }
