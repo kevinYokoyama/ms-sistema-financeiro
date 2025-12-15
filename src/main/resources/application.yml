@@ -3,6 +3,9 @@
       url: ${SGEP_VIACEP_URL}
 
   spring:
+    data:
+      mongodb:
+        uri: ${SGEP_MONGODB_URL}
     application:
       name: FinancialSystem
     cloud:
@@ -52,9 +55,6 @@
         viaCepRetry:
           maxAttempts: ${SGEP_VIACEP_MAX_ATTEMPTS}
           waitDuration: ${SGEP_VIACEP_WAIT_DURATION}
-    data:
-      mongodb:
-        uri: ${SGEP_MONGODB_URL}
 
   springdoc:
     api-docs:

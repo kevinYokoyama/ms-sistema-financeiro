@@ -26,11 +26,10 @@ public class CustomerGatewayImpl implements GenericGateway<Customer> {
     public Customer save(Customer customer) {
 
         var entity = customerEntityMapper.toEntity(customer);
-        var saved = customerRepository.save(entity);
-
         var addressEntity = customerAddress(customer);
         entity.setAddress(addressEntity);
 
+        var saved = customerRepository.save(entity);
         return customerEntityMapper.toDomain(saved);
     }
 

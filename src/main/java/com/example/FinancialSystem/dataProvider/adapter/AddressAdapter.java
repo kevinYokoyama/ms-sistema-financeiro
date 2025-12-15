@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AddressAdapter {
 
-    private ViaCepClient client;
+    private final ViaCepClient client;
 
     @Retry(name = "addressAdapterRetry", fallbackMethod = "getAddressFallBack")
     public ViaCepResponse getAddress(String zipCode) {
