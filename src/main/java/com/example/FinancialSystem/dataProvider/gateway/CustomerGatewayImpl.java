@@ -28,17 +28,7 @@ public class CustomerGatewayImpl implements GenericGateway<Customer> {
         var entity = customerEntityMapper.toEntity(customer);
         var saved = customerRepository.save(entity);
 
-        var addressResponse = addressAdapter.getAddress(customer.getZipcode());
-        var addressEntity = CustomerEntity.CustomerAddress.builder()
-                .zipcode(addressResponse.zipcode())
-                .logradouro(addressResponse.logradouro())
-                .complemento(addressResponse.complemento())
-                .unidade(addressResponse.unidade())
-                .bairro(addressResponse.bairro())
-                .localidade(addressResponse.localidade())
-                .uf(addressResponse.uf())
-                .estado(addressResponse.estado())
-                .build();
+        var addressEntity = customerAddress(customer);
         entity.setAddress(addressEntity);
 
         return customerEntityMapper.toDomain(saved);
@@ -66,5 +56,19 @@ public class CustomerGatewayImpl implements GenericGateway<Customer> {
         Page<CustomerEntity> entities = customerRepository.findAll(pageable);
         List<Customer> contracts = entities.map(customerEntityMapper::toDomain).getContent();
         return new PageImpl<>(contracts, pageable, entities.getTotalElements());
+    }
+
+    private CustomerEntity.CustomerAddress customerAddress(Customer customer) {
+        var addressResponse = addressAdapter.getAddress(customer.getZipcode());
+        return CustomerEntity.CustomerAddress.builder()
+                .zipcode(addressResponse.zipcode())
+                .logradouro(addressResponse.logradouro())
+                .complemento(addressResponse.complemento())
+                .unidade(addressResponse.unidade())
+                .bairro(addressResponse.bairro())
+                .localidade(addressResponse.localidade())
+                .uf(addressResponse.uf())
+                .estado(addressResponse.estado())
+                .build();
     }
 }
