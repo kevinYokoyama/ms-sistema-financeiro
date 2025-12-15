@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -19,7 +21,7 @@ public class CreateCustomerUseCase {
 
     public Customer execute(Customer customer) throws CustomerBirthdateNotAllowed, CustomerZipCodeNotFoundException {
 
-        if (customer.getBirthdate().getYear() < 18) {
+        if (customer.getBirthdate().isAfter(LocalDate.now().minusYears(18))) {
             log.error("Customer must be more than eighteen years old");
             throw new CustomerBirthdateNotAllowed();
         }
