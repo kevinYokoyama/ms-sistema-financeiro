@@ -4,6 +4,7 @@ import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.domain.enumeration.CustomerStatus;
 import com.example.FinancialSystem.core.exception.Customer.CustomerBirthdateNotAllowed;
 import com.example.FinancialSystem.core.exception.Customer.CustomerZipCodeNotFoundException;
+import com.example.FinancialSystem.core.gateway.CustomerGateway;
 import com.example.FinancialSystem.core.gateway.GenericGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CreateCustomerUseCase {
 
-    private final GenericGateway<Customer> customerGateway;
+    private final CustomerGateway customerGateway;
 
     public Customer execute(Customer customer) throws CustomerBirthdateNotAllowed, CustomerZipCodeNotFoundException {
 
@@ -32,6 +33,7 @@ public class CreateCustomerUseCase {
         customer.setDocument(customer.getDocument());
         customer.setBirthdate(customer.getBirthdate());
         customer.setStatus(CustomerStatus.ACTIVE);
+        customer.setZipcode(customer.getZipcode());
 
         return customerGateway.save(customer);
     }
