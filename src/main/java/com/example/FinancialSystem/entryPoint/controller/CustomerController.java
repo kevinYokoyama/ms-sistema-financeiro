@@ -49,7 +49,7 @@ public class CustomerController implements CustomerControllerApi {
     }
 
     @PutMapping("/{id}")
-    public Customer edit(@PathVariable String id, @RequestBody @Valid CustomerDto dto) throws CustomerNameNotAllowedException, CustomerIdNotFoundException {
+    public Customer edit(@PathVariable String id, @RequestBody @Valid CustomerDto dto) throws CustomerNameNotAllowedException, CustomerIdNotFoundException, CustomerZipCodeNotFoundException {
         var customer = customerMapper.toDomain(dto);
         return editCustomerUseCase.execute(id, customer);
     }

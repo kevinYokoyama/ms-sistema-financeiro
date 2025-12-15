@@ -31,7 +31,7 @@ public interface CustomerControllerApi {
             @ApiResponse(responseCode = "200", description = "Return a customer already edited", content = {@Content(schema = @Schema(implementation = Customer.class))}),
             @ApiResponse(responseCode = "400", description = "Return a message error showing what is wrong", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
-    Customer edit(String id, CustomerDto dto) throws CustomerNameNotAllowedException, CustomerIdNotFoundException;
+    Customer edit(String id, CustomerDto dto) throws CustomerNameNotAllowedException, CustomerIdNotFoundException, CustomerZipCodeNotFoundException;
 
     @Operation(summary = "Search a customer by their id", description = "Search for a customer by the id in the path")
     @ApiResponses({
