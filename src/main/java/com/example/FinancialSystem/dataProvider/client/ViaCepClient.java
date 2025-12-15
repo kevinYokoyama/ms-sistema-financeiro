@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "viaCepFeign", url = "${sgep.viaCep.url}")
 public interface ViaCepClient {
 
-    @GetMapping(path = "/{zipCode}/json")
+    @GetMapping("/{zipCode}/json")
     ViaCepResponse getViaCep(@PathVariable String zipcode);
 }
