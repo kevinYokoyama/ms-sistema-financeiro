@@ -1,8 +1,7 @@
 package com.example.FinancialSystem.core.useCase.CustomerUseCase;
 
-import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.exception.Customer.CustomerIdNotFoundException;
-import com.example.FinancialSystem.core.gateway.GenericGateway;
+import com.example.FinancialSystem.core.gateway.CustomerGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DeleteCustomerUseCase {
 
-    private final GenericGateway<Customer> customerGateway;
+    private final CustomerGateway customerGateway;
 
     public void execute(String id) throws CustomerIdNotFoundException {
 

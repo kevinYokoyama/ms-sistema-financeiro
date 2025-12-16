@@ -4,6 +4,7 @@ import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.exception.Customer.CustomerBirthdateNotAllowed;
 import com.example.FinancialSystem.core.exception.Customer.CustomerIdNotFoundException;
 import com.example.FinancialSystem.core.exception.Customer.CustomerNameNotAllowedException;
+import com.example.FinancialSystem.core.exception.Customer.CustomerZipCodeNotFoundException;
 import com.example.FinancialSystem.entryPoint.dto.CustomerDto;
 import com.example.FinancialSystem.entryPoint.handler.ApiError;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,14 +24,14 @@ public interface CustomerControllerApi {
             @ApiResponse(responseCode = "201", description = "Return the created customer", content = {@Content(schema = @Schema(implementation = Customer.class))}),
             @ApiResponse(responseCode = "400", description = "Return a message error showing what is wrong", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
-    Customer create(CustomerDto dto) throws CustomerBirthdateNotAllowed;
+    Customer create(CustomerDto dto) throws CustomerBirthdateNotAllowed, CustomerZipCodeNotFoundException;
 
     @Operation(summary = "Edit a customer", description = "Update the name of the customer specified in the path by their id")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Return a customer already edited", content = {@Content(schema = @Schema(implementation = Customer.class))}),
             @ApiResponse(responseCode = "400", description = "Return a message error showing what is wrong", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
-    Customer edit(String id, CustomerDto dto) throws CustomerNameNotAllowedException, CustomerIdNotFoundException;
+    Customer edit(String id, CustomerDto dto) throws CustomerNameNotAllowedException, CustomerIdNotFoundException, CustomerZipCodeNotFoundException;
 
     @Operation(summary = "Search a customer by their id", description = "Search for a customer by the id in the path")
     @ApiResponses({

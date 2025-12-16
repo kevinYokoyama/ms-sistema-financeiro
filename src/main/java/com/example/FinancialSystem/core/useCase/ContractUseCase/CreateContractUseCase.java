@@ -40,6 +40,7 @@ public class CreateContractUseCase {
         var totalAmount = getTotalAmount(contract, monthlySetRate);
         var installmentAmount = getInstallmentAmount(contract, totalAmount);
         var endDate = LocalDate.now().plusMonths(contract.getOperationPeriod());
+        var daysOverdue = 0;
 
         contract.setOperationPeriod(contract.getOperationPeriod());
         contract.setStatus(ContractStatus.ACTIVE);
@@ -48,9 +49,9 @@ public class CreateContractUseCase {
         contract.setInstallmentAmount(installmentAmount);
         contract.setStartDate(LocalDate.now());
         contract.setEndDate(endDate);
-        contract.setDaysOverdue(getDaysOverdue(endDate));
+        contract.setDaysOverdue(daysOverdue);
         contract.setMonthlySetRate(monthlySetRate);
-        contract.setRemainingAmount(getRemainingAmount(totalAmount, installmentAmount));
+        contract.setRemainingAmount(totalAmount);
 
         return contractGateway.save(contract);
     }
@@ -59,11 +60,4 @@ public class CreateContractUseCase {
         return Customer.builder().id(contract.getId()).build();
     }
 
-    private static int getDaysOverdue(LocalDate endDate) {
-        return endDate.getDayOfMonth();
-    }
-
-    private static BigDecimal getRemainingAmount(BigDecimal totalAmount, BigDecimal installmentAmount) {
-        return totalAmount.subtract(installmentAmount);
-    }
 }

@@ -1,4 +1,11 @@
+  sgep:
+    viaCep:
+      url: ${SGEP_VIACEP_URL}
+
   spring:
+    data:
+      mongodb:
+        uri: ${SGEP_MONGODB_URL}
     application:
       name: FinancialSystem
     cloud:
@@ -27,14 +34,27 @@
             environment:
               spring.cloud.stream.kafka:
                 binder:
-                  brokers: localhost:9092
+                  brokers: ${SGEP_BROKERS_LOCALHOST_PORT}
                   producer-properties:
                     key.serializer: org.apache.kafka.common.serialization.StringSerializer
                   autoCreateTopics: true
+      openfeign:
+        client:
+          config:
+            viaCepFeign:
+              connectTimeout: ${SGEP_OPENFEIGN_CONNECT_TIMEOUT}
+              readTimeout: ${SGEP_OPENFEIGN_READ_TIMEOUT}
 
-    data:
-      mongodb:
-        uri: mongodb://localhost:37017/financial-system
+  resilience4j:
+    retry:
+      configs:
+        default:
+          maxAttempts: ${SGEP_RETRY_MAX_ATTEMPTS}
+          waitDuration: ${SGEP_RETRY_WAIT_DURATION}
+      instances:
+        viaCepRetry:
+          maxAttempts: ${SGEP_VIACEP_MAX_ATTEMPTS}
+          waitDuration: ${SGEP_VIACEP_WAIT_DURATION}
 
   springdoc:
     api-docs:

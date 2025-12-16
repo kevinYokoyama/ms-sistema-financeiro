@@ -4,6 +4,7 @@ import com.example.FinancialSystem.core.domain.Customer;
 import com.example.FinancialSystem.core.exception.Customer.CustomerBirthdateNotAllowed;
 import com.example.FinancialSystem.core.exception.Customer.CustomerIdNotFoundException;
 import com.example.FinancialSystem.core.exception.Customer.CustomerNameNotAllowedException;
+import com.example.FinancialSystem.core.exception.Customer.CustomerZipCodeNotFoundException;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.CreateCustomerUseCase;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.DeleteCustomerUseCase;
 import com.example.FinancialSystem.core.useCase.CustomerUseCase.EditCustomerUseCase;
@@ -42,13 +43,13 @@ public class CustomerController implements CustomerControllerApi {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Customer create(@RequestBody @Valid CustomerDto dto) throws CustomerBirthdateNotAllowed {
+    public Customer create(@RequestBody @Valid CustomerDto dto) throws CustomerBirthdateNotAllowed, CustomerZipCodeNotFoundException {
         var customer = customerMapper.toDomain(dto);
         return createCustomerUseCase.execute(customer);
     }
 
     @PutMapping("/{id}")
-    public Customer edit(@PathVariable String id, @RequestBody @Valid CustomerDto dto) throws CustomerNameNotAllowedException, CustomerIdNotFoundException {
+    public Customer edit(@PathVariable String id, @RequestBody @Valid CustomerDto dto) throws CustomerNameNotAllowedException, CustomerIdNotFoundException, CustomerZipCodeNotFoundException {
         var customer = customerMapper.toDomain(dto);
         return editCustomerUseCase.execute(id, customer);
     }
